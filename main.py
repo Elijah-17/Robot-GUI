@@ -1,4 +1,4 @@
-import tk
+import tkinter
 import customtkinter
 #system appearance and config
 customtkinter.set_appearance_mode('System')
@@ -13,3 +13,5 @@ app.title('button')
 
 #make a button that turns green when pressed
 
+
+app.mainloop

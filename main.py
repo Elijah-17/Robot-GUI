@@ -4,9 +4,10 @@ import customtkinter
 customtkinter.set_appearance_mode('System')
 customtkinter.set_default_color_theme('blue')
 
+#stuff
 app = customtkinter.CTk()
-app.geometry('1920x1080')
 app.title('button')
+app.geometry("1920x1080")
 
 #idk what im doing
 
@@ -14,4 +15,4 @@ app.title('button')
 #make a button that turns green when pressed
 
 
-app.mainloop
+app.mainloop()

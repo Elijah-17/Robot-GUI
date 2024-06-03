@@ -18,6 +18,8 @@ def activate():
     grey_box = customtkinter.CTkFrame(app, width=150, height=30, fg_color="darkgrey")
     grey_box.place(x=200, y=620)
 
+#say connecting to robot... in orange or blue
+    #when connection is failed, add and else condition to the 'try'
     #when succesful connection achieved
     text_label = customtkinter.CTkLabel(app, text="Robot Connected", text_color="green", bg_color="darkgrey")
     text_label.place(x=225, y=620)
@@ -37,7 +39,7 @@ slider_box = customtkinter.CTkFrame(app, width=250, height=600, fg_color='grey')
 slider_box.place(x=570, y=10)
 
 
- 
+ #makes the sliders and titles, also displays robot rotation degrees for each joint
 def sliders():
     box1_name = customtkinter.CTkLabel(app, text="Joint 1", bg_color='grey',font=("Arial", 10))
     box1_name.place(x=700, y=80)

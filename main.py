@@ -59,7 +59,7 @@ def sliders():
     # Slider 1
     box1_outline = customtkinter.CTkFrame(app, width=220, height=60, fg_color="darkgrey")
     box1_outline.place(x=590, y=40)
-    box1_name = customtkinter.CTkLabel(app, text="Joint 1", bg_color="00000000", font=("Arial", 15))
+    box1_name = customtkinter.CTkLabel(app, text="Joint 1", bg_color="", font=("Arial", 15))
     box1_name.place(x=600, y=50)
     box1 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(box1, box1_percent), fg_color="darkgrey")
     box1.place(x=600, y=70)

@@ -50,7 +50,7 @@ slider_box.place(x=570, y=10)
  
  # Function to update slider percentage
 def update_slider_label(slider, label):
-    value = slider.get(), 1
+    value = round(slider.get(), 1)
     label.configure(text=f"{value}%")
  #makes the sliders and titles, also displays robot rotation degrees for each joint
 def sliders():

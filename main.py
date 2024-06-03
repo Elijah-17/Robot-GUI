@@ -1,18 +1,22 @@
 import tkinter
 import customtkinter
-#system appearance and config
+
+# System appearance and config
 customtkinter.set_appearance_mode('System')
 customtkinter.set_default_color_theme('blue')
 
-#stuff
+# Function to change button color
+def change_button_color():
+    button.config(bg="green")
+
+# Create the main window
 app = customtkinter.CTk()
-app.title('button')
-app.geometry("1920x1080")
+app.title('Button')
+app.geometry("300x200")
 
-#idk what im doing
+# Create a button
+button = customtkinter.CTkButton(app, text="Click Me!", command=change_button_color)
+button.pack(pady=20)
 
-
-#make a button that turns green when pressed
-
-
+# Run the application
 app.mainloop()

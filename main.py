@@ -13,7 +13,6 @@ app.title('Robot GUI')
 app.geometry("1920x980")
 
 def activate():
-    print('i was called')
     ActivateButton.pack_forget()  # Hide the button
     #replace button with shaded textbox
     grey_box = customtkinter.CTkFrame(app, width=150, height=30, fg_color="darkgrey")

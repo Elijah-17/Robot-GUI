@@ -12,10 +12,12 @@ app = customtkinter.CTk()
 app.title('Robot GUI')
 app.geometry("1920x1080")
 
-class activate(self):
+def activate():
     try
         #disable joint lock, enable all axis, home robot, reset robot joint values.
-        
+
+        #add text that says 'robot connected'
+
     
 
 # Create a button

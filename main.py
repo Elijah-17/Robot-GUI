@@ -57,13 +57,11 @@ def update_slider_label(slider, label):
  #makes the sliders and titles, also displays robot rotation degrees for each joint
 def sliders():
     # Slider 1
-    box1_outline = customtkinter.CTkFrame(app, width=220, height=60, fg_color="darkgrey")
-    box1_outline.place(x=590, y=40)
-    box1_name = customtkinter.CTkLabel(app, text="Joint 1", bg_color="", font=("Arial", 15))
+    box1_name = customtkinter.CTkLabel(app, text="Joint 1", bg_color='grey',font=("Arial", 15))
     box1_name.place(x=600, y=50)
-    box1 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(box1, box1_percent), fg_color="darkgrey")
+    box1 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(box1, box1_percent))
     box1.place(x=600, y=70)
-    box1_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color="darkgrey")
+    box1_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
     box1_percent.place(x=770, y=35)
     app.update()
 

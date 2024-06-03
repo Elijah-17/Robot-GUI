@@ -23,8 +23,10 @@ def connect():
     text_connecting = customtkinter.CTkLabel(app, text="Robot Connecting...", text_color="darkorange", bg_color="darkgrey")
     text_connecting.place(x=225, y=620)
     app.update()
-    time.sleep(3)#timer in place of robot connection and activation sequence
+    #time.sleep(3)#timer in place of robot connection and activation sequence
+
     #when connection is failed, add and else condition to the 'try'
+
     #when succesful connection achieved
     text_label = customtkinter.CTkLabel(app, text="Robot Connected", text_color="green", bg_color="darkgrey")
     text_label.place(x=225, y=620)
@@ -50,7 +52,7 @@ slider_box.place(x=570, y=10)
  
  # Function to update slider percentage
 def update_slider_label(slider, label):
-    value = round(slider.get(), 1)
+    value = round(slider.get() - 50, 1)
     label.configure(text=f"{value}%")
  #makes the sliders and titles, also displays robot rotation degrees for each joint
 def sliders():
@@ -75,6 +77,27 @@ def sliders():
     box3.place(x=600, y=300)
     box3_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
     box3_percent.place(x=600, y=260)
+
+    box4_name = customtkinter.CTkLabel(app, text="Joint 4", bg_color='grey', font=("Arial", 10))
+    box4_name.place(x=600, y=380)
+    box4 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(box4, box4_percent))
+    box4.place(x=600, y=400)
+    box4_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
+    box4_percent.place(x=600, y=360)
+
+    box5_name = customtkinter.CTkLabel(app, text="Joint 5", bg_color='grey', font=("Arial", 10))
+    box5_name.place(x=600, y=480)
+    box5 = customtkinter.CTkSlider(app, from_=-50, to=50, command=lambda value: update_slider_label(box5, box5_percent))
+    box5.place(x=600, y=500)
+    box5_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
+    box5_percent.place(x=600, y=460)
+
+    box6_name = customtkinter.CTkLabel(app, text="Joint 6", bg_color='grey', font=("Arial", 10))
+    box6_name.place(x=600, y=580)
+    box6 = customtkinter.CTkSlider(app, from_=-50, to=50, command=lambda value: update_slider_label(box6, box6_percent))
+    box6.place(x=600, y=600)
+    box6_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
+    box6_percent.place(x=600, y=560)
 
 
 

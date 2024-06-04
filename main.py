@@ -3,12 +3,13 @@ import customtkinter
 import time
 
 #define joint variables FUTURE make this a class with joint min/max and speed values
-Joint1=0#base rotation
-Joint2=0#shoulder
-Joint3=0#elbow
-Joint4=0#forearm rotation
-Joint5=0#wrist rotation (up down)
-Joint6=0#tool rotation (rotating tool)
+class Joints:
+    Joint1R=0#base rotation
+    Joint2R=0#shoulder
+    Joint3R=0#elbow
+    Joint4R=0#forearm rotation
+    Joint5R=0#wrist rotation (up down)
+    Joint6R=0#tool rotation (rotating tool)
 
 # System appearance and config
 customtkinter.set_appearance_mode('System')
@@ -19,7 +20,14 @@ customtkinter.set_default_color_theme('blue')
 # Create the main window
 app = customtkinter.CTk()
 app.title('Robot GUI')
-app.geometry("1920x980")
+app.geometry("1920x780")
+
+
+def program():
+    title_box = customtkinter.CTkFrame(app, width=300, height=30, bg_color='grey')
+    title_box.place(x=1000, y=10)
+    grey_box = customtkinter.CTkScrollableFrame(app, width=650, height=600, bg_color='lightgrey')
+    grey_box.place(x=850, y=50)
 
 def connect():
     ActivateButton.pack_forget()  # Hide the button
@@ -36,21 +44,30 @@ def connect():
     #when connection is failed, add and else condition to the 'try'
 
     #when succesful connection achieved
-    text_label = customtkinter.CTkLabel(app, text="Robot Connected", text_color="green", bg_color="darkgrey")
-    text_label.place(x=225, y=620)
+    text_connected = customtkinter.CTkLabel(app, text="Robot Connected", text_color="green", bg_color="darkgrey")
+    text_connected.place(x=225, y=620)
     text_connecting.place_forget()
     app.update()
     sliders()
+    program()
     #create joint movement sliders
         #disable joint lock, enable all axis, home robot, reset robot joint values.
 
-def resetJoints():
-    baseX=0        
+def disconnect(text_connected):
+    #ActivateButton = customtkinter.CTkButton(app, text="connect", command=connect)
+    #ActivateButton.place(x = 200, y = 620)
+    text_connected.place_forget()
+
+#def resetJoints():
+    #baseX=0        
 
 # Create a button
 ActivateButton = customtkinter.CTkButton(app, text="connect", command=connect)
 ActivateButton.place(x = 200, y = 620)
-ResetJointsButton = customtkinter.CTkButton(app, text='reset joints', comand=resetJoints)
+
+DisconnectButton = customtkinter.CTkButton(app, width=75, border_width=10, text='', command=disconnect)
+DisconnectButton.place(x=500, y=620)
+#ResetJointsButton = customtkinter.CTkButton(app, text='reset joints', comand=resetJoints)
 #create simulation joint
 simulation_joint = customtkinter.CTkFrame(app, width=550, height=600, fg_color='grey')
 simulation_joint.place(x=10, y=10)
@@ -74,7 +91,7 @@ def sliders():
 
     joint1_name = customtkinter.CTkLabel(app, text="Joint 1", bg_color='grey',font=("Arial", 15))
     joint1_name.place(x=600, y=50)
-    joint1_plus = customtkinter.CTkButton(app, text='+', command= jointX+='5%')
+    #joint1_plus = customtkinter.CTkButton(app, text='+', command= jointX+='5')
     joint1 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint1, joint1_percent))
     joint1.place(x=600, y=70)
     joint1_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')

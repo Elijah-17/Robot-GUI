@@ -2,6 +2,13 @@ import tk
 import customtkinter
 import time
 
+#define joint variables FUTURE make this a class with joint min/max and speed values
+Joint1=0#base rotation
+Joint2=0#shoulder
+Joint3=0#elbow
+Joint4=0#forearm rotation
+Joint5=0#wrist rotation (up down)
+Joint6=0#tool rotation (rotating tool)
 
 # System appearance and config
 customtkinter.set_appearance_mode('System')
@@ -38,18 +45,18 @@ def connect():
         #disable joint lock, enable all axis, home robot, reset robot joint values.
 
 def resetJoints():
-    set BaseX=0        
+    baseX=0        
 
 # Create a button
 ActivateButton = customtkinter.CTkButton(app, text="connect", command=connect)
 ActivateButton.place(x = 200, y = 620)
 ResetJointsButton = customtkinter.CTkButton(app, text='reset joints', comand=resetJoints)
-#create simulation box
-simulation_box = customtkinter.CTkFrame(app, width=550, height=600, fg_color='grey')
-simulation_box.place(x=10, y=10)
-#create slider box
-slider_box = customtkinter.CTkFrame(app, width=250, height=600, fg_color='grey')
-slider_box.place(x=570, y=10)
+#create simulation joint
+simulation_joint = customtkinter.CTkFrame(app, width=550, height=600, fg_color='grey')
+simulation_joint.place(x=10, y=10)
+#create slider joint
+slider_joint = customtkinter.CTkFrame(app, width=250, height=600, fg_color='grey')
+slider_joint.place(x=570, y=10)
 
 
  
@@ -60,48 +67,55 @@ def update_slider_label(slider, label):
  #makes the sliders and titles, also displays robot rotation degrees for each joint
 def sliders():
     # Slider 1
-    box1_name = customtkinter.CTkLabel(app, text="Joint 1", bg_color='grey',font=("Arial", 15))
-    box1_name.place(x=600, y=50)
-    box1 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(box1, box1_percent))
-    box1.place(x=600, y=70)
-    box1_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    box1_percent.place(x=770, y=35)
+    #change sliders so they display the actual position from the robot joints as defined above, 
+    #have the sliders adjust the target position of the robot joints
+    #when the 'home robot' button is pressed, set all robot joints back to 0 and reset sliders to 0
+    #have the sliders locked until homing is complete (have a 'homing' house image display over the sliders to hide them till done homing)
+
+    joint1_name = customtkinter.CTkLabel(app, text="Joint 1", bg_color='grey',font=("Arial", 15))
+    joint1_name.place(x=600, y=50)
+    joint1_plus = customtkinter.CTkButton(app, text='+', command= jointX+='5%')
+    joint1 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint1, joint1_percent))
+    joint1.place(x=600, y=70)
+    joint1_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
+    joint1_percent.place(x=770, y=35)
     app.update()
+    
 
-    box2_name = customtkinter.CTkLabel(app, text="Joint 2", bg_color='grey', font=("Arial", 15))
-    box2_name.place(x=600, y=150)
-    box2 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(box2, box2_percent))
-    box2.place(x=600, y=170)
-    box2_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    box2_percent.place(x=770, y=135)
+    joint2_name = customtkinter.CTkLabel(app, text="Joint 2", bg_color='grey', font=("Arial", 15))
+    joint2_name.place(x=600, y=150)
+    joint2 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint2, joint2_percent))
+    joint2.place(x=600, y=170)
+    joint2_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
+    joint2_percent.place(x=770, y=135)
 
-    box3_name = customtkinter.CTkLabel(app, text="Joint 3", bg_color='grey', font=("Arial", 15))
-    box3_name.place(x=600, y=250)
-    box3 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(box3, box3_percent))
-    box3.place(x=600, y=270)
-    box3_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    box3_percent.place(x=770, y=235)
+    joint3_name = customtkinter.CTkLabel(app, text="Joint 3", bg_color='grey', font=("Arial", 15))
+    joint3_name.place(x=600, y=250)
+    joint3 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint3, joint3_percent))
+    joint3.place(x=600, y=270)
+    joint3_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
+    joint3_percent.place(x=770, y=235)
 
-    box4_name = customtkinter.CTkLabel(app, text="Joint 4", bg_color='grey', font=("Arial", 15))
-    box4_name.place(x=600, y=350)
-    box4 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(box4, box4_percent))
-    box4.place(x=600, y=370)
-    box4_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    box4_percent.place(x=770, y=330)
+    joint4_name = customtkinter.CTkLabel(app, text="Joint 4", bg_color='grey', font=("Arial", 15))
+    joint4_name.place(x=600, y=350)
+    joint4 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint4, joint4_percent))
+    joint4.place(x=600, y=370)
+    joint4_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
+    joint4_percent.place(x=770, y=330)
 
-    box5_name = customtkinter.CTkLabel(app, text="Joint 5", bg_color='grey', font=("Arial", 15))
-    box5_name.place(x=600, y=450)
-    box5 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(box5, box5_percent))
-    box5.place(x=600, y=470)
-    box5_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    box5_percent.place(x=770, y=430)
+    joint5_name = customtkinter.CTkLabel(app, text="Joint 5", bg_color='grey', font=("Arial", 15))
+    joint5_name.place(x=600, y=450)
+    joint5 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint5, joint5_percent))
+    joint5.place(x=600, y=470)
+    joint5_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
+    joint5_percent.place(x=770, y=430)
 
-    box6_name = customtkinter.CTkLabel(app, text="Joint 6", bg_color='grey', font=("Arial", 15))
-    box6_name.place(x=600, y=550)
-    box6 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(box6, box6_percent))
-    box6.place(x=600, y=570)
-    box6_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    box6_percent.place(x=770, y=530)
+    joint6_name = customtkinter.CTkLabel(app, text="Joint 6", bg_color='grey', font=("Arial", 15))
+    joint6_name.place(x=600, y=550)
+    joint6 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint6, joint6_percent))
+    joint6.place(x=600, y=570)
+    joint6_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
+    joint6_percent.place(x=770, y=530)
 
 # Run the application
 app.mainloop()

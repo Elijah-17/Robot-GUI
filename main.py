@@ -3,7 +3,7 @@ import customtkinter
 import time
 
 #define joint variables FUTURE make this a class with joint min/max and speed values
-class Joints:
+class Joints ():
     Joint1R=0#base rotation
     Joint2R=0#shoulder
     Joint3R=0#elbow
@@ -65,7 +65,7 @@ def disconnect(text_connected):
 ActivateButton = customtkinter.CTkButton(app, text="connect", command=connect)
 ActivateButton.place(x = 200, y = 620)
 
-DisconnectButton = customtkinter.CTkButton(app, width=75, border_width=10, text='', command=disconnect)
+DisconnectButton = customtkinter.CTkButton(app, width=75, text='(/)', command=disconnect)
 DisconnectButton.place(x=500, y=620)
 #ResetJointsButton = customtkinter.CTkButton(app, text='reset joints', comand=resetJoints)
 #create simulation joint

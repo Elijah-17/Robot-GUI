@@ -1,4 +1,5 @@
 import tk
+from tk import *
 import customtkinter
 import time
 
@@ -68,7 +69,7 @@ def connect():
     text_connecting = customtkinter.CTkLabel(app, text="Robot Connecting...", text_color="darkorange", bg_color="darkgrey")
     text_connecting.place(x=225, y=620)
     app.update()
-    #time.sleep(3)#timer in place of robot connection and activation sequence
+    time.sleep(3)#timer in place of robot connection and activation sequence
 
     #when connection is failed, add and else condition to the 'try'
 

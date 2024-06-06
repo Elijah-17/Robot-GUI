@@ -34,7 +34,7 @@ class app(customtkinter.CTk):
         self.mainloop()
 
 
-class Sim(customtkinter.CTk):
+class Sim(customtkinter.frame):
     def __init__(self, parent):
         super().__init__(parent)
 

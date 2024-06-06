@@ -28,4 +28,4 @@ I plan to have a drop down with a run selection mode, this run selection mode al
 
 
 ## to controll robotic arm 
-I am going to have a target x and a current x, I set the target x to be the x of the slider(1 decimal place) and the current x comes from encoders, the percent displayed is the current robot positions, there is a 'wait for' command between the steps to make sure the robot reaches the target within a tolerance before moving in to the next. PID tuning to controll the joints
+I am going to have a target x and a current x, I set the target x to be the x of the slider(1 decimal place) and the current x comes from encoders, the percent displayed is the current robot positions, there is a 'wait for' command between the steps to make sure the robot reaches the target within a tolerance before moving in to the next. PID tuning to controll the joints.

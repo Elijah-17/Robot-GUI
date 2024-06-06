@@ -12,15 +12,44 @@ class Joints ():
     Joint6R=0#tool rotation (rotating tool)
 
 # System appearance and config
+class app(customtkinter.CTk):
+    def __init__(self, title, size):
+        
+        #main setup
+        super().__init__()
+        self.title(title)
+        self.geometry(f'{size[0]}x{size[1]}')
+        #self.minsize(size[0], size[1])
+        #self.minsize(1500,780)
+
+        #widgets
+        #self.activate = Activate(self)
+        self.sim = Sim(self)
+        #self.controll = Controll(self)
+        #self.program = Program(self)
+
+
+
+
+        self.mainloop()
+
+
+class Sim(customtkinter.CTk):
+    def __init__(self, parent):
+        super().__init__(parent)
+
+
+
+app('Robot GUI', (1920,780))
 customtkinter.set_appearance_mode('System')
 customtkinter.set_default_color_theme('blue')
 
 # Function to change button color
 
 # Create the main window
-app = customtkinter.CTk()
-app.title('Robot GUI')
-app.geometry("1920x780")
+#app = customtkinter.CTk()
+#app.title('Robot GUI')
+#app.geometry("1920x780")
 
 
 def program():

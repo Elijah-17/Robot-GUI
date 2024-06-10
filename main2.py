@@ -1,66 +1,67 @@
-import tk
-from tk import *
 import customtkinter
-import time
 
-
-
-# System appearance and config
-# class app(customtkinter.CTk):
-#     def __init__(self, title, size):
-        
-#         #main setup
-#         super().__init__()
-#         self.title(title)
-#         self.geometry(f'{size[0]}x{size[1]}')
-#         #self.minsize(size[0], size[1])
-#         self.minsize(900,780)
-
-
-#        self.mainloop() 
+# Initialize customtkinter settings
 customtkinter.set_appearance_mode('System')
 customtkinter.set_default_color_theme('blue')
+
+# Main application setup
 app = customtkinter.CTk()
 app.title('Robot GUI')
 app.geometry("1920x780")
 
-
-def increase(targetposition, plus):
-        targetposition += plus
-        print(targetposition)
-
-def decrease(targetposition, minus):
-        targetposition -= minus
-        print(targetposition)
-
 class Sliders(customtkinter.CTkFrame):
 
-    def __init__(self, parent, joint_name, joint_choordinate, slider_position, target_position, plus, minus):
-        super().__init__(master = parent)
+    def __init__(self, parent, joint_name, joint_coordinate, slider_position, target_position, plus, minus):
+        super().__init__(master=parent)
+
+        self.target_position = target_position
+        self.plus = plus
+        self.minus = minus
 
         self.rowconfigure((0, 1), weight=1)
-        self.columnconfigure((0,1,2), weight =1)
-        customtkinter.CTkLabel(self, text = joint_name).grid(row=0, column=0)
-        customtkinter.CTkSlider(self, from_=0, to=100).grid(row=1, column=1)
-        customtkinter.CTkLabel(self, text = joint_choordinate).grid(row=0, column =2)
-        customtkinter.CTkButton(self, text = '+', command= increase).grid(row=1, column =2)
-        customtkinter.CTkButton(self, text = '-', command= decrease).grid(row=1, column =0)
+        self.columnconfigure((0,1,2, 3, 4), weight=1)
+
+        customtkinter.CTkLabel(self, text=joint_name).grid(row=0, column=0)
+
+        self.slider = customtkinter.CTkSlider(self, from_=0, to=100, command=self.update_from_slider)
+        self.slider.set(slider_position)
+        self.slider.grid(row=1, column=2)
+       
+        #when using robotic arm, use line 31 and comment out 32 & 33.
+        #customtkinter.CTkLabel(self, text=joint_coordinate).grid(row=0, column=4)
+        self.target_label = customtkinter.CTkLabel(self, text=str(self.target_position))
+        self.target_label.grid(row=0, column=4)
+
+        customtkinter.CTkButton(self, text='+', command=self.increase).grid(row=1, column=3)
+        customtkinter.CTkButton(self, text='-', command=self.decrease).grid(row=1, column=1)
+
+        #self.pack(expand=True, fill='both', padx=10, pady=10)
+        self.pack(fill='both', padx=10, pady=10)
 
 
-        self.pack(expand = True, fill='both', padx=10, pady=10)
-        return(target_position, plus, minus)
+    def increase(self):
+        self.target_position += self.plus
+        self.update_display()
 
-#app('Robot GUI', (1920,780))
-customtkinter.set_appearance_mode('System')
-customtkinter.set_default_color_theme('blue')
-#sliders(app, joint name, joint choordinate, sliderposition, targetposition, )
-Sliders(app, 'Joint1R', '0', '0', '50', '5', '5')
-Sliders(app, 'Joint2R', '50', '0', '50', '5', '5')
-Sliders(app, 'Joint3R', '0', '0', '50', '5', '5')
-Sliders(app, 'Joint4R', '50', '0', '50', '5', '5')
-Sliders(app, 'Joint5R', '0', '0', '50', '5', '5')
-Sliders(app, 'Joint6R', '0', '0', '50', '5', '5')
+    def decrease(self):
+        self.target_position -= self.minus
+        self.update_display()
 
+    def update_display(self):
+        self.target_label.configure(text=str(self.target_position))
+        self.slider.set(self.target_position)
 
+    def update_from_slider(self, value):
+        self.target_position = int(value)
+        self.update_display()
 
+# Create instances of the Sliders class
+Sliders(app, 'Joint1R', '0', 50, 50, 5, 5)
+Sliders(app, 'Joint2R', '50', 50, 50, 5, 5)
+Sliders(app, 'Joint3R', '0', 50, 50, 5, 5)
+Sliders(app, 'Joint4R', '50', 50, 50, 5, 5)
+Sliders(app, 'Joint5R', '0', 50, 50, 5, 5)
+Sliders(app, 'Joint6R', '0', 50, 50, 5, 5)
+
+# Start the main event loop
 app.mainloop()

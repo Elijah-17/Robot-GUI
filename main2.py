@@ -2,6 +2,9 @@ import tk
 from tk import *
 import customtkinter
 import time
+
+
+
 # System appearance and config
 class app(customtkinter.CTk):
     def __init__(self, title, size):
@@ -11,41 +14,32 @@ class app(customtkinter.CTk):
         self.title(title)
         self.geometry(f'{size[0]}x{size[1]}')
         #self.minsize(size[0], size[1])
-        #self.minsize(1500,780)
-
-        #widgets
-        #self.activate = Activate(self)
-        self.sliders = Sliders(self)
-        #self.controll = Controll(self)
-        #self.program = Program(self)
-        self.mainloop()
+        self.minsize(900,780)
 
 
-class Activate(customtkinter.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent)
-        customtkinter.CTkLabel(self, background= 'lightgrey').pack(fill='both')
-        #self.place(x=10, y=10, relwidth = 0.3, relheight = 1)
-
-    def create_widgets(self):
-        # Create a button
-        activate_Button = customtkinter.CTkButton(self, text = "connect", command=connect)
-        activate_Button.place(x = 200, y = 620)
-
+        self.mainloop() 
 
 
 class Sliders(customtkinter.CTkFrame):
-    def __init__(self, parent):
-        super().__init__(parent)
+    def __init__(self, parent, joint_name, joint_choordinate, slider_position):
+        super().__init__(master = parent)
 
-    def create_widgets(self):
-        title_box = customtkinter.CTkFrame(app, width=300, height=30, bg_color='grey')
-        title_box.place(x=1000, y=10)
-        grey_box = customtkinter.CTkScrollableFrame(app, width=650, height=600, bg_color='lightgrey')
-        grey_box.place(x=850, y=50)
-    def create_layout(self):
-        self.columnconfigure((0,))
+        self.rowconfigure((0, 1), weight=1)
+        self.columnconfigure((0,1,2), weight =1)
+        customtkinter.CTkLabel(self, text = joint_name).grid(row=0, column=0)
+        customtkinter.CTkSlider(self, from_=0, to=100).grid(row=1, column=1)
+
+        self.pack(expand = True, fill='both', padx=10, pady=10)
+
 
 app('Robot GUI', (1920,780))
 customtkinter.set_appearance_mode('System')
 customtkinter.set_default_color_theme('blue')
+
+Sliders(app, 'Joint1R', '0', '0')
+Sliders(app, 'Joint2R', '0', '0')
+Sliders(app, 'Joint3R', '0', '0')
+Sliders(app, 'Joint4R', '0', '0')
+Sliders(app, 'Joint5R', '0', '0')
+Sliders(app, 'Joint6R', '0', '0')
+Sliders(app, 'Joint7R', '0', '0')

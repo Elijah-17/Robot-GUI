@@ -10,8 +10,8 @@ app.title('Robot GUI')
 app.geometry("1920x1080")  # Adjust the window size as needed
 
 # Create a main frame for the sliders and place it at x=560
-main_frame = customtkinter.CTkFrame(app)
-main_frame.place(x=560, y=50, width=1000, height=500)  # Adjust x, y, width, and height as needed
+main_frame = customtkinter.CTkFrame(app, width=1200, height=500)
+main_frame.place(x=560, y=50)
 
 class Sliders(customtkinter.CTkFrame):
 

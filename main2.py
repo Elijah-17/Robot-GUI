@@ -27,6 +27,8 @@ app = customtkinter.CTk()
 app.title('Robot GUI')
 app.geometry("1920x780")
 
+
+
 class Sliders(customtkinter.CTkFrame):
     def __init__(self, parent, joint_name, slider_position, target_position, plus, minus): #joint_coordinate, 
         super().__init__(master=parent)

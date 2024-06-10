@@ -6,18 +6,21 @@ import time
 
 
 # System appearance and config
-class app(customtkinter.CTk):
-    def __init__(self, title, size):
+# class app(customtkinter.CTk):
+#     def __init__(self, title, size):
         
-        #main setup
-        super().__init__()
-        self.title(title)
-        self.geometry(f'{size[0]}x{size[1]}')
-        #self.minsize(size[0], size[1])
-        self.minsize(900,780)
+#         #main setup
+#         super().__init__()
+#         self.title(title)
+#         self.geometry(f'{size[0]}x{size[1]}')
+#         #self.minsize(size[0], size[1])
+#         self.minsize(900,780)
 
 
-        self.mainloop() 
+#        self.mainloop() 
+app = customtkinter.CTk()
+app.title('Robot GUI')
+app.geometry("1920x780")
 
 
 class Sliders(customtkinter.CTkFrame):

@@ -28,6 +28,7 @@ def connect():
     text_connecting = customtkinter.CTkLabel(app, text="Robot Connecting...", text_color="darkorange", bg_color="darkgrey")
     text_connecting.place(x=225, y=620)
     app.update()
+    reset_all_sLiders()
     # time.sleep(3)#timer in place of robot connection and activation sequence
 
     #when connection is failed, add and else condition to the 'try'
@@ -47,23 +48,16 @@ def connect():
     Sliders(slider_frame, 'Joint 5', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 6', 0, 0, 5, 5)
     ]
-
     update_video_feed()
+
 def update_video_feed():
     ret, frame = vid.read()
     if ret:
-        frame = add_custom_frame(frame)
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img = ImageTk.PhotoImage(Image.fromarray(frame))
-        webcam_label.configure(image=img)
-        webcam_label.image = img
+        # webcam_label.configure(image=img)
+        # webcam_label.image = img
     webCam_frame.after(15, update_video_feed)
-
-def add_custom_frame(frame):
-    # Example: Add a red rectangle as a custom frame
-    frame = cv2.rectangle(frame, (50, 50), (400, 300), (255, 0, 0), 2)
-    return frame
-
     
 
 #create frames for portions of window
@@ -97,7 +91,7 @@ class Sliders(customtkinter.CTkFrame):
         self.target_position = target_position
         self.plus = plus
         self.minus = minus
-        self.original_position = target_position
+        self.original_position = 0
 
 
         self.rowconfigure((0, 1), weight=1)
@@ -140,13 +134,15 @@ class Sliders(customtkinter.CTkFrame):
         
     def home(self):
         self.target_position = self.original_position
+
 def reset_all_sLiders():
     for sliders in allSLiders:
         sliders.home()
 
 
 
-Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='U^', command=reset_all_sLiders)
+Home_Button = customtkinter.CTkButton(app, width=75, text='HOME', command=reset_all_sLiders)
 Home_Button.place(x=500, y=620)
+
 app.mainloop()
 vid.release()

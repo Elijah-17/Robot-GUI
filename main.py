@@ -3,14 +3,7 @@ from tk import *
 import customtkinter
 import time
 
-#define joint variables FUTURE make this a class with joint min/max and speed values
-class Joints ():
-    Joint1R=0#base rotation
-    Joint2R=0#shoulder
-    Joint3R=0#elbow
-    Joint4R=0#forearm rotation
-    Joint5R=0#wrist rotation (up down)
-    Joint6R=0#tool rotation (rotating tool)
+
 
 # System appearance and config
 customtkinter.set_appearance_mode('System')
@@ -42,7 +35,7 @@ def connect():
     text_connecting = customtkinter.CTkLabel(app, text="Robot Connecting...", text_color="darkorange", bg_color="darkgrey")
     text_connecting.place(x=225, y=620)
     app.update()
-    time.sleep(3)#timer in place of robot connection and activation sequence
+    # time.sleep(3)#timer in place of robot connection and activation sequence
 
     #when connection is failed, add and else condition to the 'try'
 
@@ -51,8 +44,15 @@ def connect():
     text_connected.place(x=225, y=620)
     text_connecting.place_forget()
     app.update()
-    sliders()
     program()
+    
+    #sliders(app, joint name, sliderposition, targetposition, plus/minus button effect)
+    Sliders(app, 'Joint 1', 0, 0, 2, 2)
+    Sliders(app, 'Joint 2', 0, 0, 5, 5)
+    Sliders(app, 'Joint 3', 0, 0, 5, 5)
+    Sliders(app, 'Joint 4', 0, 0, 5, 5)
+    Sliders(app, 'Joint 5', 0, 0, 5, 5)
+    Sliders(app, 'Joint 6', 0, 0, 5, 5)
     #create joint movement sliders
         #disable joint lock, enable all axis, home robot, reset robot joint values.
 
@@ -81,61 +81,51 @@ slider_joint.place(x=570, y=10)
 
  
  # Function to update slider percentage
-def update_slider_label(slider, label):
-    value = round(slider.get() - 50, 1)
-    label.configure(text=f"{value}%")
- #makes the sliders and titles, also displays robot rotation degrees for each joint
-def sliders():
-    # Slider 1
-    #change sliders so they display the actual position from the robot joints as defined above, 
-    #have the sliders adjust the target position of the robot joints
-    #when the 'home robot' button is pressed, set all robot joints back to 0 and reset sliders to 0
-    #have the sliders locked until homing is complete (have a 'homing' house image display over the sliders to hide them till done homing)
+class Sliders(customtkinter.CTkFrame):
+    def __init__(self, parent, joint_name, slider_position, target_position, plus, minus): #joint_coordinate, 
+        super().__init__(master=parent)
+        self.target_position = target_position
+        self.plus = plus
+        self.minus = minus
 
-    joint1_name = customtkinter.CTkLabel(app, text="Joint 1", bg_color='grey',font=("Arial", 15))
-    joint1_name.place(x=600, y=50)
-    #joint1_plus = customtkinter.CTkButton(app, text='+', command= jointX+='5')
-    joint1 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint1, joint1_percent))
-    joint1.place(x=600, y=70)
-    joint1_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    joint1_percent.place(x=770, y=35)
-    app.update()
-    
+        self.rowconfigure((0, 1), weight=1)
+        self.columnconfigure((0,1,2), weight=1)
 
-    joint2_name = customtkinter.CTkLabel(app, text="Joint 2", bg_color='grey', font=("Arial", 15))
-    joint2_name.place(x=600, y=150)
-    joint2 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint2, joint2_percent))
-    joint2.place(x=600, y=170)
-    joint2_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    joint2_percent.place(x=770, y=135)
+        customtkinter.CTkLabel(self, text=joint_name).grid(row=0, column=0)
+        self.slider = customtkinter.CTkSlider(self, from_=-50, to=50, command=self.update_from_slider)
+        self.slider.set(slider_position)
+        self.slider.grid(row=1, column=1)
+       
+        #when using robotic arm, use line 31 and comment out 32 & 33.
+        #customtkinter.CTkLabel(self, text=joint_coordinate).grid(row=0, column=4)
+        self.target_label = customtkinter.CTkLabel(self, text=str(self.target_position))
+        self.target_label.grid(row=0, column=2)
 
-    joint3_name = customtkinter.CTkLabel(app, text="Joint 3", bg_color='grey', font=("Arial", 15))
-    joint3_name.place(x=600, y=250)
-    joint3 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint3, joint3_percent))
-    joint3.place(x=600, y=270)
-    joint3_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    joint3_percent.place(x=770, y=235)
+        customtkinter.CTkButton(self, text='+', width=10, height =20, command=self.increase).grid(row=1, column=2)
+        customtkinter.CTkButton(self, text='-', width=10, height =20, command=self.decrease).grid(row=1, column=0)
 
-    joint4_name = customtkinter.CTkLabel(app, text="Joint 4", bg_color='grey', font=("Arial", 15))
-    joint4_name.place(x=600, y=350)
-    joint4 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint4, joint4_percent))
-    joint4.place(x=600, y=370)
-    joint4_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    joint4_percent.place(x=770, y=330)
+        self.pack(padx=10, pady=10)
+        self.grid_location(x=500, y=30)
 
-    joint5_name = customtkinter.CTkLabel(app, text="Joint 5", bg_color='grey', font=("Arial", 15))
-    joint5_name.place(x=600, y=450)
-    joint5 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint5, joint5_percent))
-    joint5.place(x=600, y=470)
-    joint5_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    joint5_percent.place(x=770, y=430)
 
-    joint6_name = customtkinter.CTkLabel(app, text="Joint 6", bg_color='grey', font=("Arial", 15))
-    joint6_name.place(x=600, y=550)
-    joint6 = customtkinter.CTkSlider(app, from_=0, to=100, command=lambda value: update_slider_label(joint6, joint6_percent))
-    joint6.place(x=600, y=570)
-    joint6_percent = customtkinter.CTkLabel(app, text="0.0%", bg_color='grey')
-    joint6_percent.place(x=770, y=530)
+#functinos to make the +/- buttons work and to correctly display the values
+    def increase(self):
+        self.target_position += self.plus
+        self.update_display()
 
-# Run the application
+    def decrease(self):
+        self.target_position -= self.minus
+        self.update_display()
+
+    def update_display(self):
+        self.target_label.configure(text=str(self.target_position))
+        self.slider.set(self.target_position)
+
+    def update_from_slider(self, value):
+        self.target_position = int(value)
+        self.update_display()
+
+
+
+
 app.mainloop()

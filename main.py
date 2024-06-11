@@ -1,6 +1,6 @@
-import tk
-from tk import *
+import cv2
 import customtkinter
+from PIL import Image, ImageTk
 import time
 
 
@@ -47,8 +47,22 @@ def connect():
     Sliders(slider_frame, 'Joint 5', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 6', 0, 0, 5, 5)
     ]
-    #create joint movement sliders
-        #disable joint lock, enable all axis, home robot, reset robot joint values.
+
+    update_video_feed()
+def update_video_feed():
+    ret, frame = vid.read()
+    if ret:
+        frame = add_custom_frame(frame)
+        frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
+        img = ImageTk.PhotoImage(Image.fromarray(frame))
+        webcam_label.configure(image=img)
+        webcam_label.image = img
+    webCam_frame.after(15, update_video_feed)
+
+def add_custom_frame(frame):
+    # Example: Add a red rectangle as a custom frame
+    frame = cv2.rectangle(frame, (50, 50), (400, 300), (255, 0, 0), 2)
+    return frame
 
     
 
@@ -62,9 +76,14 @@ slider_frame = customtkinter.CTkFrame(app, width=250, height=500)
 slider_frame.place(x=570, y=10)
 
 
+
+webcam_label = customtkinter.CTkLabel(webCam_frame)
+webcam_label.pack()
 # Create a button
 ActivateButton = customtkinter.CTkButton(app, text="connect", command=connect)
 ActivateButton.place(x = 200, y = 620)
+
+vid = cv2.VideoCapture(0)
 
 # Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='U^', command=reset_all_sLiders)
 # Home_Button.place(x=500, y=620)
@@ -130,3 +149,4 @@ def reset_all_sLiders():
 Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='U^', command=reset_all_sLiders)
 Home_Button.place(x=500, y=620)
 app.mainloop()
+vid.release()

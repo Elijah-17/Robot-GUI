@@ -40,6 +40,8 @@ def connect():
     app.update()
 
     #sliders(app, joint name, sliderposition, targetposition, plus/minus button effet
+    Controll_label = customtkinter.CTkLabel(slider_frame, text= 'Controll')
+    Controll_label.pack()
     allSliders = [
     Sliders(slider_frame, 'Joint 1', 0, 0, 2, 2),
     Sliders(slider_frame, 'Joint 2', 0, 0, 5, 5),
@@ -55,8 +57,8 @@ def update_video_feed():
     if ret:
         frame = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
         img = ImageTk.PhotoImage(Image.fromarray(frame))
-        # webcam_label.configure(image=img)
-        # webcam_label.image = img
+        webcam_label.configure(image=img)
+        #webcam_label.image = img
     webCam_frame.after(15, update_video_feed)
     
 
@@ -64,10 +66,10 @@ def update_video_feed():
 webCam_frame = customtkinter.CTkFrame(app, width=550, height=600)
 webCam_frame.place(x=10, y=10)
 program_frame = customtkinter.CTkFrame(app, width=550, height=600)
-program_frame.place(x=830, y=10)
+program_frame.place(x=800, y=10)
 #slider frame changes size when the sliders are activated, idk why tbh.
-slider_frame = customtkinter.CTkFrame(app, width=250, height=500)
-slider_frame.place(x=570, y=10)
+slider_frame = customtkinter.CTkFrame(app, width=250, height=400)
+slider_frame.place(x=530, y=10)
 
 
 

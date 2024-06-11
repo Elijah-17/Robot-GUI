@@ -16,6 +16,7 @@ app = customtkinter.CTk()
 app.title('Robot GUI')
 app.geometry("1920x780")
 
+allSLiders = []
 
 def connect():
     ActivateButton.pack_forget()  # Hide the button
@@ -37,40 +38,38 @@ def connect():
     text_connecting.place_forget()
     app.update()
 
-    #sliders(app, joint name, sliderposition, targetposition, plus/minus button effect)
-    Sliders(slider_frame, 'Joint 1', 0, 0, 2, 2)
-    Sliders(slider_frame, 'Joint 2', 0, 0, 5, 5)
-    Sliders(slider_frame, 'Joint 3', 0, 0, 5, 5)
-    Sliders(slider_frame, 'Joint 4', 0, 0, 5, 5)
-    Sliders(slider_frame, 'Joint 5', 0, 0, 5, 5)
+    #sliders(app, joint name, sliderposition, targetposition, plus/minus button effet
+    allSliders = [
+    Sliders(slider_frame, 'Joint 1', 0, 0, 2, 2),
+    Sliders(slider_frame, 'Joint 2', 0, 0, 5, 5),
+    Sliders(slider_frame, 'Joint 3', 0, 0, 5, 5),
+    Sliders(slider_frame, 'Joint 4', 0, 0, 5, 5),
+    Sliders(slider_frame, 'Joint 5', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 6', 0, 0, 5, 5)
+    ]
     #create joint movement sliders
         #disable joint lock, enable all axis, home robot, reset robot joint values.
 
-def home():
-    #reset sliders
     
 
+#create frames for portions of window
+webCam_frame = customtkinter.CTkFrame(app, width=550, height=600)
+webCam_frame.place(x=10, y=10)
+program_frame = customtkinter.CTkFrame(app, width=550, height=600)
+program_frame.place(x=830, y=10)
+#slider frame changes size when the sliders are activated, idk why tbh.
+slider_frame = customtkinter.CTkFrame(app, width=250, height=500)
+slider_frame.place(x=570, y=10)
 
-#def resetJoints():
-    #baseX=0        
 
 # Create a button
 ActivateButton = customtkinter.CTkButton(app, text="connect", command=connect)
 ActivateButton.place(x = 200, y = 620)
 
-Home_Button = customtkinter.CTkButton(app, width=75, text='U^', command=home)
-Home_Button.place(x=500, y=620)
+# Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='U^', command=reset_all_sLiders)
+# Home_Button.place(x=500, y=620)
 #ResetJointsButton = customtkinter.CTkButton(app, text='reset joints', comand=resetJoints)
 
-webCam_frame = customtkinter.CTkFrame(app, width=550, height=600)
-webCam_frame.place(x=10, y=10)
-
-program_frame = customtkinter.CTkFrame(app, width=550, height=600)
-program_frame.place(x=830, y=10)
-
-slider_frame = customtkinter.CTkFrame(app, width=250, height=500)
-slider_frame.place(x=570, y=10)
  
  # Function to update slider percentage
 class Sliders(customtkinter.CTkFrame):
@@ -79,14 +78,8 @@ class Sliders(customtkinter.CTkFrame):
         self.target_position = target_position
         self.plus = plus
         self.minus = minus
+        self.original_position = target_position
 
-        # Configure grid layout
-        # self.rowconfigure(0, weight=1)
-        # self.rowconfigure(1, weight=1)
-        # self.columnconfigure(0, weight=1)
-        # self.columnconfigure(1, weight=3)  # More space for slider
-        # self.columnconfigure(2, weight=1)
-        # self.columnconfigure(3, weight=1)
 
         self.rowconfigure((0, 1), weight=1)
         self.columnconfigure((0,1,2), weight=1)
@@ -104,7 +97,7 @@ class Sliders(customtkinter.CTkFrame):
         customtkinter.CTkButton(self, text='+', width=10, height =20, command=self.increase).grid(row=1, column=2)
         customtkinter.CTkButton(self, text='-', width=10, height =20, command=self.decrease).grid(row=1, column=0)
 
-        self.pack(expand=True, padx=10, pady=10)
+        self.pack(pady=10) #(expand = True, padx=10, pady=10)
         self.grid_location(x=500, y=30)
 
 
@@ -125,7 +118,15 @@ class Sliders(customtkinter.CTkFrame):
         self.target_position = int(value)
         self.update_display()
 
+        
+    def home(self):
+        self.target_position = self.original_position
+def reset_all_sLiders():
+    for sliders in allSLiders:
+        sliders.home()
 
 
 
+Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='U^', command=reset_all_sLiders)
+Home_Button.place(x=500, y=620)
 app.mainloop()

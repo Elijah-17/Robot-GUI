@@ -21,12 +21,13 @@ allSLiders = []
 def connect():
     ActivateButton.pack_forget()  # Hide the button
     #replace button with shaded textbox
-    grey_box = customtkinter.CTkFrame(app, width=150, height=30, fg_color="darkgrey")
-    grey_box.place(x=200, y=620)
-    grey_box.pack
+    grey_box = customtkinter.CTkFrame(slider_frame, width=150, height=30, fg_color="darkgrey")
+    # grey_box.place(x=200, y=620)
+    grey_box.pack()
 #say connecting to robot... in orange or blue
-    text_connecting = customtkinter.CTkLabel(app, text="Robot Connecting...", text_color="darkorange", bg_color="darkgrey")
-    text_connecting.place(x=225, y=620)
+    text_connecting = customtkinter.CTkLabel(slider_frame, text="Robot Connecting...", text_color="darkorange", bg_color="darkgrey")
+    # text_connecting.place(x=225, y=620)
+    text_connecting.pack()
     app.update()
     reset_all_sLiders()
     # time.sleep(3)#timer in place of robot connection and activation sequence
@@ -34,8 +35,9 @@ def connect():
     #when connection is failed, add and else condition to the 'try'
 
     #when succesful connection achieved
-    text_connected = customtkinter.CTkLabel(app, text="Robot Connected", text_color="green", bg_color="darkgrey")
-    text_connected.place(x=225, y=620)
+    text_connected = customtkinter.CTkLabel(slider_frame, text="Robot Connected", text_color="green", bg_color="darkgrey")
+    # text_connected.place(x=225, y=620)
+    text_connected.pack()
     text_connecting.place_forget()
     app.update()
 
@@ -76,8 +78,9 @@ slider_frame.place(x=530, y=10)
 webcam_label = customtkinter.CTkLabel(webCam_frame)
 webcam_label.pack()
 # Create a button
-ActivateButton = customtkinter.CTkButton(app, text="connect", command=connect)
-ActivateButton.place(x = 200, y = 620)
+ActivateButton = customtkinter.CTkButton(slider_frame, text="connect", command=connect)
+ActivateButton.pack()
+# ActivateButton.place(x = 200, y = 620)
 
 vid = cv2.VideoCapture(0)
 
@@ -143,8 +146,9 @@ def reset_all_sLiders():
 
 
 
-Home_Button = customtkinter.CTkButton(app, width=75, text='HOME', command=reset_all_sLiders)
+Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
 Home_Button.place(x=500, y=620)
+Home_Button.pack()
 
 app.mainloop()
 vid.release()

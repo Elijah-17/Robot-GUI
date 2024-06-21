@@ -63,7 +63,6 @@ def connect():
     text_connected = customtkinter.CTkLabel(Activate_frame, text="Robot Connected", width=260, height=30, text_color="green", bg_color="darkgrey")
     # text_connected.place(x=225, y=620)
     text_connected.pack()
-    text_connecting.place_forget()
     app.update()
 
     update_video_feed()
@@ -75,6 +74,7 @@ def connect():
     Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
     #Home_Button.place(x=500, y=620)
     Home_Button.pack()
+    gripper()
     app.update
 
 
@@ -100,9 +100,17 @@ ActivateButton.pack()
 vid = cv2.VideoCapture(0)
 #
 
-# Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='U^', command=reset_all_sLiders)
-# Home_Button.place(x=500, y=620)
-#ResetJointsButton = customtkinter.CTkButton(app, text='reset joints', comand=resetJoints)
+def gripper():
+    print('gripper')
+    options = [
+        '3 Finger',
+        'Parallel Jaw',
+        'Vacumme'
+    ]
+
+    clicked = customtkinter.Variable(value=options[0])  # Initialize StringVar with the default option
+    gripper_Select = customtkinter.CTkOptionMenu(gripper_frame, clicked, *options)
+    gripper_Select.pack()
  
  # Function to update slider percentage
 class Sliders(customtkinter.CTkFrame):
@@ -133,8 +141,6 @@ class Sliders(customtkinter.CTkFrame):
         self.pack(pady=10) #(expand = True, padx=10, pady=10)
         self.grid_location(x=500, y=30)
         print(self.target_position)
-
-
 #functions to make the +/- buttons work and to correctly display the values
     def increase(self):
         self.target_position += self.plus

@@ -1,5 +1,6 @@
 import cv2
 import customtkinter
+import tkinter
 from PIL import Image, ImageTk
 import time
 
@@ -99,14 +100,22 @@ vid = cv2.VideoCapture(0)
 def gripper():
     print('gripper')
     options = [
+        'select',
         '3 Finger',
         'Parallel Jaw',
         'Vacumme'
     ]
-
-    #clicked = customtkinter.Variable(value=options[0])  # Initialize StringVar with the default option
-    gripper_Select = customtkinter.CTkOptionMenu(gripper_frame, clicked, *options)
+    clicked = customtkinter.StringVar()  # Initialize StringVar with the default option
+    clicked.set(options[0])  # Set the default value
+    gripper_Select = customtkinter.CTkOptionMenu(gripper_frame, variable=clicked, values=options)
     gripper_Select.pack()
+
+    if options[1]:
+        print('3 finger parameters')
+    if options[2]:
+        print('parallel jaw parameters')
+    if options[3]:
+        print('vacumme parameters')
  
  # Function to update slider percentage
 class Sliders(customtkinter.CTkFrame):
@@ -136,7 +145,6 @@ class Sliders(customtkinter.CTkFrame):
 
         self.pack(pady=10) #(expand = True, padx=10, pady=10)
         self.grid_location(x=500, y=30)
-        print(self.target_position)
 #functions to make the +/- buttons work and to correctly display the values
     def increase(self):
         self.target_position += self.plus

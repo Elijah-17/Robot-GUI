@@ -108,7 +108,7 @@ class Sliders(customtkinter.CTkFrame):
         self.target_position = target_position
         self.plus = plus
         self.minus = minus
-        self.original_position = 5
+        self.original_position = -5
 
 
         self.rowconfigure((0, 1), weight=1)
@@ -144,7 +144,6 @@ class Sliders(customtkinter.CTkFrame):
     def update_display(self):
         self.target_label.configure(text=str(self.target_position))
         self.slider.set(self.target_position)
-        print(f"Updated {self} to {self.target_position}")
 
     def update_from_slider(self, value):
         self.target_position = int(value)
@@ -153,13 +152,11 @@ class Sliders(customtkinter.CTkFrame):
 
         
     def home(self):
-        print('homing...')
         self.target_position = self.original_position
         self.update_display()
-        print(f"Reset {self} to home position {self.original_position}")
 
 def reset_all_sLiders():
-    print('attempting reset')
+    print('HOMING')
     for sliders in allSliders:
         sliders.home()
     app.update

@@ -4,6 +4,7 @@ from PIL import Image, ImageTk
 import time
 
 
+global activate
 activate = False
 # System appearance and config
 customtkinter.set_appearance_mode('System')
@@ -30,6 +31,7 @@ Activate_frame.place(x=530, y=730)
 allSLiders = []
 
 def connect():
+    global activate
     ActivateButton.pack_forget()  # Hide the button
     #replace button with shaded textbox
     grey_box = customtkinter.CTkFrame(Activate_frame, width=150, height=30, fg_color="darkgrey")
@@ -67,12 +69,11 @@ def connect():
     Sliders(slider_frame, 'Joint 5', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 6', 0, 0, 5, 5) 
     ]
-    global activate
     activate = True
     update_video_feed()
     app.update
     print('activate is ', activate)
-    return activate
+    checkActivate()
 
 def update_video_feed():
     ret, frame = vid.read()
@@ -156,15 +157,16 @@ class Sliders(customtkinter.CTkFrame):
 def reset_all_sLiders():
     for sliders in allSLiders:
         sliders.home()
-print(activate)
+print('testing activate as ', activate)
 
-if activate:
-    print('activate is working!!!')
-    Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
-    #Home_Button.place(x=500, y=620)
-    Home_Button.pack()
-elif not activate:
-    print('activate still broken')
+def checkActivate():
+    if activate:
+        print('activate is working!!!')
+        Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
+        #Home_Button.place(x=500, y=620)
+        Home_Button.pack()
+    elif not activate:
+        print('activate still broken')
 
 app.mainloop()
 vid.release()

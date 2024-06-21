@@ -58,9 +58,6 @@ def connect():
     Gripper_label = customtkinter.CTkLabel(gripper_frame, text= 'Gripper Controll')
     Gripper_label.pack()
 
-
-
-
     allSliders = [
     #sliders(app, joint name, sliderposition, targetposition, plus/minus button effet
     Sliders(slider_frame, 'Joint 1', 0, 0, 2, 2),
@@ -73,6 +70,8 @@ def connect():
     activate = True
     update_video_feed()
     app.update
+    print('activate is '+ activate)
+    return activate
 
 def update_video_feed():
     ret, frame = vid.read()
@@ -93,7 +92,7 @@ ActivateButton.pack()
 
 
 #
-#vid = cv2.VideoCapture(0)
+vid = cv2.VideoCapture(0)
 #
 
 
@@ -156,7 +155,7 @@ class Sliders(customtkinter.CTkFrame):
 def reset_all_sLiders():
     for sliders in allSLiders:
         sliders.home()
-
+print(activate)
 if activate == True:
     Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
     #Home_Button.place(x=500, y=620)

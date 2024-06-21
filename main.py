@@ -110,13 +110,22 @@ def gripper():
     gripper_Select = customtkinter.CTkOptionMenu(gripper_frame, variable=clicked, values=options)
     gripper_Select.pack()
 
+#add parameters for each gripper option like open/close and sizes and what not. 
     if options[1]:
         print('3 finger parameters')
+        gripperActivate()
     if options[2]:
         print('parallel jaw parameters')
+        gripperActivate()
     if options[3]:
         print('vacumme parameters')
+        gripperActivate()
  
+    def gripperActivate():
+        gripper_Select.pack_forget()
+        print('activating gripper')
+
+
  # Function to update slider percentage
 class Sliders(customtkinter.CTkFrame):
     def __init__(self, parent, joint_name, slider_position, target_position, plus, minus): #joint_coordinate, 

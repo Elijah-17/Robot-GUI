@@ -8,24 +8,35 @@ import time
 # System appearance and config
 customtkinter.set_appearance_mode('System')
 customtkinter.set_default_color_theme('blue')
-
-# Function to change button color
-
 # Create the main window
 app = customtkinter.CTk()
 app.title('Robot GUI')
 app.geometry("1920x780")
+#create frames for portions of window
+webCam_frame = customtkinter.CTkFrame(app, width=550, height=600)
+webCam_frame.place(x=10, y=10)
+program_frame = customtkinter.CTkFrame(app, width=550, height=600)
+program_frame.place(x=800, y=10)
+#slider frame changes size when the sliders are activated, idk why tbh.
+slider_frame = customtkinter.CTkFrame(app, width=260, height=450)
+slider_frame.place(x=530, y=10)
+gripper_frame = customtkinter.CTkFrame(app, width=260, height=150)
+gripper_frame.place(x=530, y=470)
+Activate_frame = customtkinter.CTkFrame(app, width=260, height=75)
+Activate_frame.place(x=530, y=630)
+
+
 
 allSLiders = []
 
 def connect():
     ActivateButton.pack_forget()  # Hide the button
     #replace button with shaded textbox
-    grey_box = customtkinter.CTkFrame(slider_frame, width=150, height=30, fg_color="darkgrey")
+    grey_box = customtkinter.CTkFrame(app, width=150, height=30, fg_color="darkgrey")
     # grey_box.place(x=200, y=620)
     grey_box.pack()
 #say connecting to robot... in orange or blue
-    text_connecting = customtkinter.CTkLabel(slider_frame, text="Robot Connecting...", text_color="darkorange", bg_color="darkgrey")
+    text_connecting = customtkinter.CTkLabel(app, text="Robot Connecting...", text_color="darkorange", bg_color="darkgrey")
     # text_connecting.place(x=225, y=620)
     text_connecting.pack()
     app.update()
@@ -35,22 +46,29 @@ def connect():
     #when connection is failed, add and else condition to the 'try'
 
     #when succesful connection achieved
-    text_connected = customtkinter.CTkLabel(slider_frame, text="Robot Connected", text_color="green", bg_color="darkgrey")
+    text_connected = customtkinter.CTkLabel(app, text="Robot Connected", text_color="green", bg_color="darkgrey")
     # text_connected.place(x=225, y=620)
     text_connected.pack()
     text_connecting.place_forget()
     app.update()
 
-    #sliders(app, joint name, sliderposition, targetposition, plus/minus button effet
+    #labelling the controll areas
     Controll_label = customtkinter.CTkLabel(slider_frame, text= 'Controll')
     Controll_label.pack()
+    Gripper_label = customtkinter.CTkLabel(gripper_frame, text='Gripper Controll')
+    Gripper_label.pack()
+
+
+
+
     allSliders = [
+    #sliders(app, joint name, sliderposition, targetposition, plus/minus button effet
     Sliders(slider_frame, 'Joint 1', 0, 0, 2, 2),
     Sliders(slider_frame, 'Joint 2', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 3', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 4', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 5', 0, 0, 5, 5),
-    Sliders(slider_frame, 'Joint 6', 0, 0, 5, 5)
+    Sliders(slider_frame, 'Joint 6', 0, 0, 5, 5) 
     ]
     update_video_feed()
 
@@ -64,25 +82,18 @@ def update_video_feed():
     webCam_frame.after(15, update_video_feed)
     
 
-#create frames for portions of window
-webCam_frame = customtkinter.CTkFrame(app, width=550, height=600)
-webCam_frame.place(x=10, y=10)
-program_frame = customtkinter.CTkFrame(app, width=550, height=600)
-program_frame.place(x=800, y=10)
-#slider frame changes size when the sliders are activated, idk why tbh.
-slider_frame = customtkinter.CTkFrame(app, width=250, height=400)
-slider_frame.place(x=530, y=10)
-
-
-
 webcam_label = customtkinter.CTkLabel(webCam_frame)
 webcam_label.pack()
 # Create a button
-ActivateButton = customtkinter.CTkButton(slider_frame, text="connect", command=connect)
+ActivateButton = customtkinter.CTkButton(app, text="connect", command=connect)
 ActivateButton.pack()
 # ActivateButton.place(x = 200, y = 620)
 
-vid = cv2.VideoCapture(0)
+
+
+#vid = cv2.VideoCapture(0)
+
+
 
 # Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='U^', command=reset_all_sLiders)
 # Home_Button.place(x=500, y=620)
@@ -146,7 +157,7 @@ def reset_all_sLiders():
 
 
 
-Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
+Home_Button = customtkinter.CTkButton(app, width=75, text='HOME', command=reset_all_sLiders)
 Home_Button.place(x=500, y=620)
 Home_Button.pack()
 

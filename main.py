@@ -29,17 +29,13 @@ allSliders = []
 
 def connect():
     ActivateButton.pack_forget()  # Hide the button
-    #replace button with shaded textbox
-    grey_box = customtkinter.CTkFrame(Activate_frame, width=260, height=30, fg_color="darkgrey")
-    # grey_box.place(x=200, y=620)
-    #grey_box.pack()
 #say connecting to robot... in orange or blue
     text_connecting = customtkinter.CTkLabel(Activate_frame, text="Robot Connecting...", width=260, height=30, text_color="darkorange", bg_color="darkgrey")
     # text_connecting.place(x=225, y=620)
     text_connecting.pack()
     app.update()
     #
-    time.sleep(3)#timer in place of robot connection and activation sequence
+  #  time.sleep(3)#timer in place of robot connection and activation sequence
     #
     #robot homing sequence
     #this will eventually be custom so each joint touches off on its limit switch
@@ -108,7 +104,7 @@ def gripper():
         'Vacumme'
     ]
 
-    clicked = customtkinter.Variable(value=options[0])  # Initialize StringVar with the default option
+    #clicked = customtkinter.Variable(value=options[0])  # Initialize StringVar with the default option
     gripper_Select = customtkinter.CTkOptionMenu(gripper_frame, clicked, *options)
     gripper_Select.pack()
  

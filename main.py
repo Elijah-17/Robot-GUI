@@ -67,10 +67,11 @@ def connect():
     Sliders(slider_frame, 'Joint 5', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 6', 0, 0, 5, 5) 
     ]
+    global activate
     activate = True
     update_video_feed()
     app.update
-    print('activate is '+ activate)
+    print('activate is ', activate)
     return activate
 
 def update_video_feed():
@@ -156,11 +157,14 @@ def reset_all_sLiders():
     for sliders in allSLiders:
         sliders.home()
 print(activate)
-if activate == True:
+
+if activate:
+    print('activate is working!!!')
     Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
     #Home_Button.place(x=500, y=620)
     Home_Button.pack()
-
+elif not activate:
+    print('activate still broken')
 
 app.mainloop()
 vid.release()

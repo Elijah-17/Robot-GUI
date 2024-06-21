@@ -4,7 +4,7 @@ from PIL import Image, ImageTk
 import time
 
 
-
+activate = False
 # System appearance and config
 customtkinter.set_appearance_mode('System')
 customtkinter.set_default_color_theme('blue')
@@ -21,9 +21,9 @@ program_frame.place(x=800, y=10)
 slider_frame = customtkinter.CTkFrame(app, width=260, height=450)
 slider_frame.place(x=530, y=10)
 gripper_frame = customtkinter.CTkFrame(app, width=260, height=150)
-gripper_frame.place(x=530, y=470)
+gripper_frame.place(x=530, y=570)
 Activate_frame = customtkinter.CTkFrame(app, width=260, height=75)
-Activate_frame.place(x=530, y=630)
+Activate_frame.place(x=530, y=730)
 
 
 
@@ -32,7 +32,7 @@ allSLiders = []
 def connect():
     ActivateButton.pack_forget()  # Hide the button
     #replace button with shaded textbox
-    grey_box = customtkinter.CTkFrame(app, width=150, height=30, fg_color="darkgrey")
+    grey_box = customtkinter.CTkFrame(Activate_frame, width=150, height=30, fg_color="darkgrey")
     # grey_box.place(x=200, y=620)
     grey_box.pack()
 #say connecting to robot... in orange or blue
@@ -55,7 +55,7 @@ def connect():
     #labelling the controll areas
     Controll_label = customtkinter.CTkLabel(slider_frame, text= 'Controll')
     Controll_label.pack()
-    Gripper_label = customtkinter.CTkLabel(gripper_frame, text='Gripper Controll')
+    Gripper_label = customtkinter.CTkLabel(gripper_frame, text= 'Gripper Controll')
     Gripper_label.pack()
 
 
@@ -70,7 +70,9 @@ def connect():
     Sliders(slider_frame, 'Joint 5', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 6', 0, 0, 5, 5) 
     ]
+    activate = True
     update_video_feed()
+    app.update
 
 def update_video_feed():
     ret, frame = vid.read()
@@ -85,14 +87,14 @@ def update_video_feed():
 webcam_label = customtkinter.CTkLabel(webCam_frame)
 webcam_label.pack()
 # Create a button
-ActivateButton = customtkinter.CTkButton(app, text="connect", command=connect)
+ActivateButton = customtkinter.CTkButton(Activate_frame, text="connect", command=connect)
 ActivateButton.pack()
 # ActivateButton.place(x = 200, y = 620)
 
 
-
+#
 #vid = cv2.VideoCapture(0)
-
+#
 
 
 # Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='U^', command=reset_all_sLiders)
@@ -155,11 +157,11 @@ def reset_all_sLiders():
     for sliders in allSLiders:
         sliders.home()
 
+if activate == True:
+    Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
+    #Home_Button.place(x=500, y=620)
+    Home_Button.pack()
 
-
-Home_Button = customtkinter.CTkButton(app, width=75, text='HOME', command=reset_all_sLiders)
-Home_Button.place(x=500, y=620)
-Home_Button.pack()
 
 app.mainloop()
 vid.release()

@@ -4,8 +4,6 @@ from PIL import Image, ImageTk
 import time
 
 
-global activate
-activate = False
 # System appearance and config
 customtkinter.set_appearance_mode('System')
 customtkinter.set_default_color_theme('blue')
@@ -27,11 +25,9 @@ Activate_frame = customtkinter.CTkFrame(app, width=260, height=75)
 Activate_frame.place(x=530, y=730)
 
 
-
-allSLiders = []
+allSliders = []
 
 def connect():
-    global activate
     ActivateButton.pack_forget()  # Hide the button
     #replace button with shaded textbox
     grey_box = customtkinter.CTkFrame(Activate_frame, width=150, height=30, fg_color="darkgrey")
@@ -60,20 +56,22 @@ def connect():
     Gripper_label = customtkinter.CTkLabel(gripper_frame, text= 'Gripper Controll')
     Gripper_label.pack()
 
-    allSliders = [
-    #sliders(app, joint name, sliderposition, targetposition, plus/minus button effet
+    allSliders.extend([
+        # Sliders(app, joint name, slider position, target position, plus/minus button effect
     Sliders(slider_frame, 'Joint 1', 0, 0, 2, 2),
     Sliders(slider_frame, 'Joint 2', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 3', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 4', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 5', 0, 0, 5, 5),
-    Sliders(slider_frame, 'Joint 6', 0, 0, 5, 5) 
-    ]
-    activate = True
+    Sliders(slider_frame, 'Joint 6', 0, 0, 5, 5)
+    ])
+
     update_video_feed()
+    Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
+    #Home_Button.place(x=500, y=620)
+    Home_Button.pack()
     app.update
-    print('activate is ', activate)
-    checkActivate()
+
 
 def update_video_feed():
     ret, frame = vid.read()
@@ -110,7 +108,7 @@ class Sliders(customtkinter.CTkFrame):
         self.target_position = target_position
         self.plus = plus
         self.minus = minus
-        self.original_position = 0
+        self.original_position = 5
 
 
         self.rowconfigure((0, 1), weight=1)
@@ -131,6 +129,7 @@ class Sliders(customtkinter.CTkFrame):
 
         self.pack(pady=10) #(expand = True, padx=10, pady=10)
         self.grid_location(x=500, y=30)
+        print(self.target_position)
 
 
 #functions to make the +/- buttons work and to correctly display the values
@@ -145,28 +144,26 @@ class Sliders(customtkinter.CTkFrame):
     def update_display(self):
         self.target_label.configure(text=str(self.target_position))
         self.slider.set(self.target_position)
+        print(f"Updated {self} to {self.target_position}")
 
     def update_from_slider(self, value):
         self.target_position = int(value)
         self.update_display()
+        print
 
         
     def home(self):
+        print('homing...')
         self.target_position = self.original_position
+        self.update_display()
+        print(f"Reset {self} to home position {self.original_position}")
 
 def reset_all_sLiders():
-    for sliders in allSLiders:
+    print('attempting reset')
+    for sliders in allSliders:
         sliders.home()
-print('testing activate as ', activate)
+    app.update
 
-def checkActivate():
-    if activate:
-        print('activate is working!!!')
-        Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
-        #Home_Button.place(x=500, y=620)
-        Home_Button.pack()
-    elif not activate:
-        print('activate still broken')
 
 app.mainloop()
 vid.release()

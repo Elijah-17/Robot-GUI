@@ -17,12 +17,12 @@ webCam_frame.place(x=10, y=10)
 program_frame = customtkinter.CTkFrame(app, width=550, height=600)
 program_frame.place(x=800, y=10)
 #slider frame changes size when the sliders are activated, idk why tbh.
-slider_frame = customtkinter.CTkFrame(app, width=260, height=450)
+slider_frame = customtkinter.CTkFrame(app, width=260, height=480)
 slider_frame.place(x=530, y=10)
 gripper_frame = customtkinter.CTkFrame(app, width=260, height=150)
-gripper_frame.place(x=530, y=570)
+gripper_frame.place(x=530, y=500)
 Activate_frame = customtkinter.CTkFrame(app, width=260, height=75)
-Activate_frame.place(x=530, y=730)
+Activate_frame.place(x=530, y=660)
 
 
 allSliders = []
@@ -30,34 +30,23 @@ allSliders = []
 def connect():
     ActivateButton.pack_forget()  # Hide the button
     #replace button with shaded textbox
-    grey_box = customtkinter.CTkFrame(Activate_frame, width=150, height=30, fg_color="darkgrey")
+    grey_box = customtkinter.CTkFrame(Activate_frame, width=260, height=30, fg_color="darkgrey")
     # grey_box.place(x=200, y=620)
-    grey_box.pack()
+    #grey_box.pack()
 #say connecting to robot... in orange or blue
-    text_connecting = customtkinter.CTkLabel(app, text="Robot Connecting...", text_color="darkorange", bg_color="darkgrey")
+    text_connecting = customtkinter.CTkLabel(Activate_frame, text="Robot Connecting...", width=260, height=30, text_color="darkorange", bg_color="darkgrey")
     # text_connecting.place(x=225, y=620)
     text_connecting.pack()
     app.update()
-    reset_all_sLiders()
-    # time.sleep(3)#timer in place of robot connection and activation sequence
-
-    #when connection is failed, add and else condition to the 'try'
-
-    #when succesful connection achieved
-    text_connected = customtkinter.CTkLabel(app, text="Robot Connected", text_color="green", bg_color="darkgrey")
-    # text_connected.place(x=225, y=620)
-    text_connected.pack()
-    text_connecting.place_forget()
-    app.update()
-
-    #labelling the controll areas
+    #
+    time.sleep(3)#timer in place of robot connection and activation sequence
+    #
+    #robot homing sequence
+    #this will eventually be custom so each joint touches off on its limit switch
     Controll_label = customtkinter.CTkLabel(slider_frame, text= 'Controll')
     Controll_label.pack()
-    Gripper_label = customtkinter.CTkLabel(gripper_frame, text= 'Gripper Controll')
-    Gripper_label.pack()
-
     allSliders.extend([
-        # Sliders(app, joint name, slider position, target position, plus/minus button effect
+# Sliders(frame, joint name, slider position, target position, plus/minus button effect
     Sliders(slider_frame, 'Joint 1', 0, 0, 2, 2),
     Sliders(slider_frame, 'Joint 2', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 3', 0, 0, 5, 5),
@@ -65,8 +54,24 @@ def connect():
     Sliders(slider_frame, 'Joint 5', 0, 0, 5, 5),
     Sliders(slider_frame, 'Joint 6', 0, 0, 5, 5)
     ])
+    reset_all_sLiders()
+
+    #when connection is failed, add and else condition to the 'try'
+
+    #when succesful connection achieved
+    text_connecting.pack_forget()
+    text_connected = customtkinter.CTkLabel(Activate_frame, text="Robot Connected", width=260, height=30, text_color="green", bg_color="darkgrey")
+    # text_connected.place(x=225, y=620)
+    text_connected.pack()
+    text_connecting.place_forget()
+    app.update()
 
     update_video_feed()
+
+    #labelling the controll areas
+    Gripper_label = customtkinter.CTkLabel(gripper_frame, text= 'Gripper Controll')
+    Gripper_label.pack()
+
     Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
     #Home_Button.place(x=500, y=620)
     Home_Button.pack()
@@ -86,7 +91,7 @@ def update_video_feed():
 webcam_label = customtkinter.CTkLabel(webCam_frame)
 webcam_label.pack()
 # Create a button
-ActivateButton = customtkinter.CTkButton(Activate_frame, text="connect", command=connect)
+ActivateButton = customtkinter.CTkButton(Activate_frame, text="connect", width=260, command=connect)
 ActivateButton.pack()
 # ActivateButton.place(x = 200, y = 620)
 
@@ -95,11 +100,9 @@ ActivateButton.pack()
 vid = cv2.VideoCapture(0)
 #
 
-
 # Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='U^', command=reset_all_sLiders)
 # Home_Button.place(x=500, y=620)
 #ResetJointsButton = customtkinter.CTkButton(app, text='reset joints', comand=resetJoints)
-
  
  # Function to update slider percentage
 class Sliders(customtkinter.CTkFrame):
@@ -148,8 +151,6 @@ class Sliders(customtkinter.CTkFrame):
     def update_from_slider(self, value):
         self.target_position = int(value)
         self.update_display()
-        print
-
         
     def home(self):
         self.target_position = self.original_position

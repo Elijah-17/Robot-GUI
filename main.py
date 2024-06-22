@@ -102,14 +102,14 @@ def fingerActivate():
     gripper_Select.pack_forget()
     finger_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='3 Finger Gripper', bg_color='grey')
     finger_label.pack()
-    
+
 def ParallelActivate():
     gripper_Select.pack_forget()
     parallel_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='Parallel Gripper', bg_color='grey')
     parallel_label.pack()
 def VacuumeActivate():
     gripper_Select.pack_forget()
-    vacuume_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='Parallel Gripper', bg_color='grey')
+    vacuume_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='Vacuume Gripper', bg_color='grey')
     vacuume_label.pack()
 def option(choice):
     if choice == '3 Finger':

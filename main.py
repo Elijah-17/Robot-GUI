@@ -73,7 +73,6 @@ def connect():
     gripper()
     app.update()
 
-
 def update_video_feed():
     ret, frame = vid.read()
     if ret:
@@ -97,20 +96,51 @@ vid = cv2.VideoCapture(0)
 #
 
 
- 
+class gripperOptions(customtkinter.CTkFrame):
+    def __init__(self, parent, GripperName, Open, Close): #joint_coordinate, 
+        super().__init__(master=parent)
+        self.GripperName = GripperName
+        self.Open = Open
+        self.Close = Close
+
+        self.rowconfigure((0, 1), weight=1)
+        self.columnconfigure((0,1,2), weight=1)
+        name = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text=GripperName, bg_color='grey')
+        name.grid(row=0, column=1)
+
+
+    if GripperName == 'Vacuume':
+        open = customtkinter.CTkButton()
+        #Close does not exist
+    else:
+        close = customtkinter.CTkButton(gripper_frame, width=50, height=30)
+        close.grid(column=1, row=1)
+
+
 def fingerActivate():
     gripper_Select.pack_forget()
+    #gripper.rowconfigure((0, 1), weight=1)
+    #gripper.columnconfigure((0,1,2), weight=1)
     finger_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='3 Finger Gripper', bg_color='grey')
     finger_label.pack()
+    # create grid
+    open_buttom = customtkinter.CTkButton(gripper_frame, text='OPEN', width=50, height=30)
+    open_buttom.pack()
+    #open_buttom.place(x=550, y=575)
+    close_button = customtkinter.CTkButton(gripper_frame, text='CLOSE', width = 50, height = 30)
+    close_button.pack()
+    #close_button.place(x=600, y=575)
 
 def ParallelActivate():
     gripper_Select.pack_forget()
     parallel_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='Parallel Gripper', bg_color='grey')
     parallel_label.pack()
+
 def VacuumeActivate():
     gripper_Select.pack_forget()
     vacuume_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='Vacuume Gripper', bg_color='grey')
     vacuume_label.pack()
+
 def option(choice):
     if choice == '3 Finger':
         fingerActivate()

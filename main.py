@@ -107,7 +107,8 @@ class gripperOptions(customtkinter.CTkFrame):
         self.columnconfigure((0,1,2), weight=1)
         name = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text=GripperName, bg_color='grey')
         name.grid(row=0, column=1)
-
+#on and off text is different for vacume. vacume is on/off, normal grippers are open/close. The buttons use these labels 
+# and set a boolean called eithor 'open' or 'close'. on sets the gripper to true, off sets the gripper to false.
 
     if GripperName == 'Vacuume':
         open = customtkinter.CTkButton()

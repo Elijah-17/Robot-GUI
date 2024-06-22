@@ -17,7 +17,6 @@ webCam_frame = customtkinter.CTkFrame(app, width=550, height=600)
 webCam_frame.place(x=10, y=10)
 program_frame = customtkinter.CTkFrame(app, width=550, height=600)
 program_frame.place(x=800, y=10)
-#slider frame changes size when the sliders are activated, idk why tbh.
 slider_frame = customtkinter.CTkFrame(app, width=260, height=480)
 slider_frame.place(x=530, y=10)
 gripper_frame = customtkinter.CTkFrame(app, width=260, height=150)
@@ -36,7 +35,7 @@ def connect():
     text_connecting.pack()
     app.update()
     #
-  #  time.sleep(3)#timer in place of robot connection and activation sequence
+    #time.sleep(3)#timer in place of robot connection and activation sequence
     #
     #robot homing sequence
     #this will eventually be custom so each joint touches off on its limit switch
@@ -65,14 +64,14 @@ def connect():
     update_video_feed()
 
     #labelling the controll areas
-    Gripper_label = customtkinter.CTkLabel(gripper_frame, text= 'Gripper Controll')
+    Gripper_label = customtkinter.CTkLabel(gripper_frame, width=260, text= 'Gripper Controll')
     Gripper_label.pack()
 
     Home_Button = customtkinter.CTkButton(slider_frame, width=75, text='HOME', command=reset_all_sLiders)
     #Home_Button.place(x=500, y=620)
     Home_Button.pack()
     gripper()
-    app.update
+    app.update()
 
 
 def update_video_feed():
@@ -97,33 +96,42 @@ ActivateButton.pack()
 vid = cv2.VideoCapture(0)
 #
 
+
+ 
+def fingerActivate():
+    gripper_Select.pack_forget()
+    finger_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='3 Finger Gripper', bg_color='grey')
+    finger_label.pack()
+    
+def ParallelActivate():
+    gripper_Select.pack_forget()
+    parallel_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='Parallel Gripper', bg_color='grey')
+    parallel_label.pack()
+def VacuumeActivate():
+    gripper_Select.pack_forget()
+    vacuume_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='Parallel Gripper', bg_color='grey')
+    vacuume_label.pack()
+def option(choice):
+    if choice == '3 Finger':
+        fingerActivate()
+    elif choice == 'Parallel Jaw':
+        ParallelActivate()
+    elif choice == 'Vacuum':
+        VacuumeActivate()
+
 def gripper():
     print('gripper')
     options = [
         'select',
         '3 Finger',
         'Parallel Jaw',
-        'Vacumme'
+        'Vacuum'
     ]
-    clicked = customtkinter.StringVar()  # Initialize StringVar with the default option
+    clicked = customtkinter.StringVar()
     clicked.set(options[0])  # Set the default value
-    gripper_Select = customtkinter.CTkOptionMenu(gripper_frame, variable=clicked, values=options)
+    global gripper_Select
+    gripper_Select = customtkinter.CTkOptionMenu(gripper_frame, variable=clicked, values=options, command=option)
     gripper_Select.pack()
-
-#add parameters for each gripper option like open/close and sizes and what not. 
-    if options[1]:
-        print('3 finger parameters')
-        gripperActivate()
-    if options[2]:
-        print('parallel jaw parameters')
-        gripperActivate()
-    if options[3]:
-        print('vacumme parameters')
-        gripperActivate()
- 
-    def gripperActivate():
-        gripper_Select.pack_forget()
-        print('activating gripper')
 
 
  # Function to update slider percentage

@@ -116,7 +116,7 @@ def option(choice):
         fingerActivate()
     elif choice == 'Parallel Jaw':
         ParallelActivate()
-    elif choice == 'Vacuum':
+    elif choice == 'Vacuume':
         VacuumeActivate()
 
 def gripper():
@@ -125,7 +125,7 @@ def gripper():
         'select',
         '3 Finger',
         'Parallel Jaw',
-        'Vacuum'
+        'Vacuume'
     ]
     clicked = customtkinter.StringVar()
     clicked.set(options[0])  # Set the default value

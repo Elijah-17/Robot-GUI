@@ -82,7 +82,7 @@ def update_video_feed():
         #webcam_label.image = img
     webCam_frame.after(15, update_video_feed)
     
-
+#runs before the robot connects. Adds labels and file menu. 
 webcam_label = customtkinter.CTkLabel(webCam_frame)
 webcam_label.pack()
 # Create a button
@@ -94,14 +94,16 @@ ActivateButton.pack()
 #
 vid = cv2.VideoCapture(0)
 #
+gripperOption(gripper_frame, '3 finger gripper', 'OPEN', 'Close')
+grippetOption(gripper_frame, 'parallel gripper', 'Open', 'close')
+gripperOption(gripper_frame, 'vacuume gripper', 'on', 'off')
 
-
-class gripperOptions(customtkinter.CTkFrame):
-    def __init__(self, parent, GripperName, Open, Close): #joint_coordinate, 
+class gripperOption(customtkinter.CTkFrame):
+    def __init__(self, parent, GripperName, OpenName, CloseName): #joint_coordinate, 
         super().__init__(master=parent)
         self.GripperName = GripperName
-        self.Open = Open
-        self.Close = Close
+        self.Open = OpenName
+        self.Close = CloseName
 
         self.rowconfigure((0, 1), weight=1)
         self.columnconfigure((0,1,2), weight=1)
@@ -112,7 +114,7 @@ class gripperOptions(customtkinter.CTkFrame):
 
     if GripperName == 'Vacuume':
         open = customtkinter.CTkButton()
-        #Close does not exist
+        #Close does not exist 
     else:
         close = customtkinter.CTkButton(gripper_frame, width=50, height=30)
         close.grid(column=1, row=1)

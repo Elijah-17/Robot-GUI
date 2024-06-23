@@ -3,6 +3,7 @@ import customtkinter
 import tkinter
 from PIL import Image, ImageTk
 import time
+from RobotCode import *
 
 
 # System appearance and config
@@ -87,7 +88,7 @@ webcam_label = customtkinter.CTkLabel(webCam_frame)
 webcam_label.pack()
 # Create a button
 ActivateButton = customtkinter.CTkButton(Activate_frame, text="connect", width=260, command=connect)
-ActivateButton.pack()
+ActivateButton.pack() 
 # ActivateButton.place(x = 200, y = 620)
 
 
@@ -123,31 +124,32 @@ class gripperOption(customtkinter.CTkFrame):
 
 def fingerActivate():
     gripper_Select.pack_forget()
-    gripperOption(gripper_frame, '3 finger gripper', 'OPEN', 'CLOSE')
+    gripperOption(gripper_frame, '3 finger gripper', 'OPEN', 'CLOSE', GripperOpen, GripperClose)
 
 def ParallelActivate():
     gripper_Select.pack_forget()
     gripperOption(gripper_frame, 'parallel gripper', 'OPEN', 'CLOSE', ParallelOpen, ParallelClose)
 
-def VacuumeActivate():
+def VacuumActivate():
     gripper_Select.pack_forget()
-    gripperOption(gripper_frame, 'vacuume gripper', 'ON', 'OFF')
+    gripperOption(gripper_frame, 'Vacuum gripper', 'ON', 'OFF', VacuumOpen, VacuumClose)
 
 def option(choice):
     if choice == '3 Finger':
         fingerActivate()
     elif choice == 'Parallel Jaw':
         ParallelActivate()
-    elif choice == 'Vacuume':
-        VacuumeActivate()
-
+    elif choice == 'Vacuum':
+        VacuumActivate()
+ 
 def gripper():
+
     # print('gripper')
     options = [
         'select',
         '3 Finger',
         'Parallel Jaw',
-        'Vacuume'
+        'Vacuum'
     ]
     clicked = customtkinter.StringVar()
     clicked.set(options[0])  # Set the default value
@@ -157,6 +159,7 @@ def gripper():
 
 
  # Function to update slider percentage
+
 class Sliders(customtkinter.CTkFrame):
     def __init__(self, parent, joint_name, slider_position, target_position, plus, minus): #joint_coordinate, 
         super().__init__(master=parent)

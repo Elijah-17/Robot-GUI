@@ -94,55 +94,42 @@ ActivateButton.pack()
 #
 vid = cv2.VideoCapture(0)
 #
-gripperOption(gripper_frame, '3 finger gripper', 'OPEN', 'Close')
-grippetOption(gripper_frame, 'parallel gripper', 'Open', 'close')
-gripperOption(gripper_frame, 'vacuume gripper', 'on', 'off')
+
 
 class gripperOption(customtkinter.CTkFrame):
-    def __init__(self, parent, GripperName, OpenName, CloseName): #joint_coordinate, 
+    def __init__(self, parent, GripperName, OpenName, CloseName): 
         super().__init__(master=parent)
         self.GripperName = GripperName
         self.Open = OpenName
         self.Close = CloseName
 
         self.rowconfigure((0, 1), weight=1)
-        self.columnconfigure((0,1,2), weight=1)
-        name = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text=GripperName, bg_color='grey')
-        name.grid(row=0, column=1)
+        self.columnconfigure((0, 1, 2), weight=1)
+
+        self.name_label = customtkinter.CTkLabel(self, width=260, height=20, text=GripperName, fg_color='grey')
+        self.name_label.grid(row=0, column=1)
+
+        self.open_button = customtkinter.CTkButton(self, text=self.Open)
+        self.open_button.grid(row=1, column=0)
+
+        if GripperName != 'Vacuume':
+            self.close_button = customtkinter.CTkButton(self, text=self.Close)
+            self.close_button.grid(row=1, column=2)
+
 #on and off text is different for vacume. vacume is on/off, normal grippers are open/close. The buttons use these labels 
 # and set a boolean called eithor 'open' or 'close'. on sets the gripper to true, off sets the gripper to false.
 
-    if GripperName == 'Vacuume':
-        open = customtkinter.CTkButton()
-        #Close does not exist 
-    else:
-        close = customtkinter.CTkButton(gripper_frame, width=50, height=30)
-        close.grid(column=1, row=1)
-
-
 def fingerActivate():
     gripper_Select.pack_forget()
-    #gripper.rowconfigure((0, 1), weight=1)
-    #gripper.columnconfigure((0,1,2), weight=1)
-    finger_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='3 Finger Gripper', bg_color='grey')
-    finger_label.pack()
-    # create grid
-    open_buttom = customtkinter.CTkButton(gripper_frame, text='OPEN', width=50, height=30)
-    open_buttom.pack()
-    #open_buttom.place(x=550, y=575)
-    close_button = customtkinter.CTkButton(gripper_frame, text='CLOSE', width = 50, height = 30)
-    close_button.pack()
-    #close_button.place(x=600, y=575)
+    gripperOption(gripper_frame, '3 finger gripper', 'OPEN', 'CLOSE')
 
 def ParallelActivate():
     gripper_Select.pack_forget()
-    parallel_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='Parallel Gripper', bg_color='grey')
-    parallel_label.pack()
+    gripperOption(gripper_frame, 'parallel gripper', 'Open', 'cLOSE')
 
 def VacuumeActivate():
     gripper_Select.pack_forget()
-    vacuume_label = customtkinter.CTkLabel(gripper_frame, width = 260, height=20, text='Vacuume Gripper', bg_color='grey')
-    vacuume_label.pack()
+    gripperOption(gripper_frame, 'vacuume gripper', 'ON', 'OFF')
 
 def option(choice):
     if choice == '3 Finger':

@@ -97,24 +97,24 @@ vid = cv2.VideoCapture(0)
 
 
 class gripperOption(customtkinter.CTkFrame):
-    def __init__(self, parent, GripperName, OpenName, CloseName): 
+    def __init__(self, parent, GripperName, OpenName, CloseName, OpenCommand, CloseCommand): 
         super().__init__(master=parent)
         self.GripperName = GripperName
         self.Open = OpenName
         self.Close = CloseName
 
         self.rowconfigure((0, 1), weight=1)
-        self.columnconfigure((0, 1, 2), weight=1)
+        self.columnconfigure((0, 1), weight=1)
 
-        self.name_label = customtkinter.CTkLabel(self, width=260, height=20, text=GripperName, fg_color='grey')
-        self.name_label.grid(row=0, column=1)
+        self.name_label = customtkinter.CTkLabel(self, width=260, height=30, text=GripperName, fg_color='grey', font=("Helvetica", 20))
+        self.name_label.grid(row=0, column=0, columnspan=2)
 
-        self.open_button = customtkinter.CTkButton(self, text=self.Open)
+        self.open_button = customtkinter.CTkButton(self, width = 75, height=30, text=self.Open)
         self.open_button.grid(row=1, column=0)
 
-        if GripperName != 'Vacuume':
-            self.close_button = customtkinter.CTkButton(self, text=self.Close)
-            self.close_button.grid(row=1, column=2)
+        self.close_button = customtkinter.CTkButton(self, width = 75, height=30, text=self.Close)
+        self.close_button.grid(row=1, column=1) 
+        self.pack(expand = False)
 
 #on and off text is different for vacume. vacume is on/off, normal grippers are open/close. The buttons use these labels 
 # and set a boolean called eithor 'open' or 'close'. on sets the gripper to true, off sets the gripper to false.
@@ -125,7 +125,7 @@ def fingerActivate():
 
 def ParallelActivate():
     gripper_Select.pack_forget()
-    gripperOption(gripper_frame, 'parallel gripper', 'Open', 'cLOSE')
+    gripperOption(gripper_frame, 'parallel gripper', 'OPEN', 'CLOSE')
 
 def VacuumeActivate():
     gripper_Select.pack_forget()
@@ -140,7 +140,7 @@ def option(choice):
         VacuumeActivate()
 
 def gripper():
-    print('gripper')
+    # print('gripper')
     options = [
         'select',
         '3 Finger',

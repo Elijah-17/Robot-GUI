@@ -16,8 +16,10 @@ app.geometry("1920x780")
 #create frames for portions of window
 webCam_frame = customtkinter.CTkFrame(app, width=550, height=600)
 webCam_frame.place(x=10, y=10)
-program_frame = customtkinter.CTkFrame(app, width=550, height=600)
+program_frame = customtkinter.CTkScrollableFrame(app, width=700, height=700)
 program_frame.place(x=800, y=10)
+program_controll = customtkinter.CTkFrame(app, width=720, height= 50)
+program_controll.place(x=800, y=730)
 slider_frame = customtkinter.CTkFrame(app, width=260, height=480)
 slider_frame.place(x=530, y=10)
 gripper_frame = customtkinter.CTkFrame(app, width=260, height=150)
@@ -72,6 +74,7 @@ def connect():
     #Home_Button.place(x=500, y=620)
     Home_Button.pack()
     gripper()
+    program()
     app.update()
 
 def update_video_feed():
@@ -214,6 +217,10 @@ def reset_all_sLiders():
         sliders.home()
     app.update
 
-
+def program():
+    print('program')
+    #this is where the program tree is made and controlled, i definately dont know the best way to do this especially with the scrollable
+    #frame. Or how to display multiple taught positions. Could use a class called 'displayProgram' and feed in the positions from the teach
+    #function. I dont know for sure but this might work. 
 app.mainloop()
 vid.release()

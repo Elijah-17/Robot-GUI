@@ -102,6 +102,8 @@ class gripperOption(customtkinter.CTkFrame):
         self.GripperName = GripperName
         self.Open = OpenName
         self.Close = CloseName
+        self.OpenC = OpenCommand
+        self.CloseC = CloseCommand
 
         self.rowconfigure((0, 1), weight=1)
         self.columnconfigure((0, 1), weight=1)
@@ -109,10 +111,10 @@ class gripperOption(customtkinter.CTkFrame):
         self.name_label = customtkinter.CTkLabel(self, width=260, height=30, text=GripperName, fg_color='grey', font=("Helvetica", 20))
         self.name_label.grid(row=0, column=0, columnspan=2)
 
-        self.open_button = customtkinter.CTkButton(self, width = 75, height=30, text=self.Open)
+        self.open_button = customtkinter.CTkButton(self, width = 75, height=30, text=self.Open, command= self.OpenC)
         self.open_button.grid(row=1, column=0)
 
-        self.close_button = customtkinter.CTkButton(self, width = 75, height=30, text=self.Close)
+        self.close_button = customtkinter.CTkButton(self, width = 75, height=30, text=self.Close, command=self.CloseC)
         self.close_button.grid(row=1, column=1) 
         self.pack(expand = False)
 
@@ -125,7 +127,7 @@ def fingerActivate():
 
 def ParallelActivate():
     gripper_Select.pack_forget()
-    gripperOption(gripper_frame, 'parallel gripper', 'OPEN', 'CLOSE')
+    gripperOption(gripper_frame, 'parallel gripper', 'OPEN', 'CLOSE', ParallelOpen, ParallelClose)
 
 def VacuumeActivate():
     gripper_Select.pack_forget()

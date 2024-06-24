@@ -38,6 +38,7 @@ def connect():
     text_connecting.pack()
     app.update()
     #
+    connectRobot()
     #time.sleep(3)#timer in place of robot connection and activation sequence
     #
     #robot homing sequence

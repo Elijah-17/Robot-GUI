@@ -1,9 +1,16 @@
-#this is where the robot code is stored and run
-#Robot Code starts here
-#this runs on pi using the I/O to actually controll the robot
-#this is for future upgrades and not currently working to controll a robot.
+# this is where the robot code is stored and run
+# Robot Code starts here
+# this runs on pi using the I/O to actually controll the robot
+# this is for future upgrades and not currently working to controll a robot.
 
-
+def connectRobot():
+    # connect and home the robot, individually touch each joint off
+    # it's limit switch and return to the home position.
+    # once complete, allow the connection sequence in the gui to complete
+    # this also makes it easier to zero the axis since they are only 
+    # initiated once the robot is at 0 position
+ 
+    print('connecting to external robot')
 
 def ParallelOpen():
     print('opening')

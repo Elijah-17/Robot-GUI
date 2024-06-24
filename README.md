@@ -38,7 +38,7 @@ Included joints and their naming scheme and function
 End of arm tooling options
 |Gripper Name| Style|Gripper Function|
 |:----------:|:----:|:----:|
-|3 Finger Gripper|centre in 3 directions| 3 fingers that moving towards eachother to close|
+|3 Finger Gripper|centre in 2 directions| 3 fingers that moving towards eachother to close|
 |Parallel Gripper| centre in 1 direction|2 parallel jaws that move towars eachother to close|
 |Vacuum Gripper| centre vertically to suction cup| suction cup to create negative air pressure and adhere object to 1 or more cups|
 
@@ -47,8 +47,29 @@ I have started the file named 'RobotCode' where the
 I am going to have a target x and a current x, I set the target x to be the x of the slider(1 decimal place) and the current x comes from encoders, the percent displayed is the current robot positions, there is a 'wait for' command between the steps to make sure the robot reaches the target within a tolerance before moving in to the next. Depending on the motors and drivers used, PID tuning may be used to increase the precision and decrease the joint stress and movement time. 
 
 ### List Of Steps
+- [x] create initial readme file 
 - [x] create and test the main application with a simple button and frame
+- [x] add pseudocode and placeholder comments for future use
+- [x] create the frame layout
+- [x] create the activate and connection sequence. 
 - [x] create functions for the sliders
+- [x] add + and - buttons with set values per joint
 - [x] convert the function to a class
-- [x] add a home joints button and create the functions to home the sliders and display them correctly
+- [x] add a 'home' button to reset the robot and sliders back to home position
+- [x] add webcam for view of the robot
+- [x] add gripper activation, selection and controlls 
+- [x] add scrollable capability to the program frame
+- [ ] add a teach button and runmode dropdowns and '>' button for the robot to run the program
+- [ ] add button for adding I/O controlls like setting gripper to be open or closed
+- [ ] allow for changes once the program has been made or during the process
+- [ ] add file drowdown and a save button to save the program
+- [ ] add a close under the save to deactivate robot, lock joints and close the application
 - [ ] create the .exe application file
+- [ ] write all the robot code to interact with the gui
+- [ ] make this Pi friendly and able to fully opperate from 1 pi and touch display
+
+# Future Plans
+### GUI Future Plans
+There is a lot to improve to say the least. The code is terribly inneficient and takes a long time to open the fairly simple program. I still need to add in another webcam for the gripper view. This would include adding another parameter to the calss for if the gripper has a camera or not. I also need to add more to the program tree to allow for more complex programming with the addition of I/O integration and boolean logic. This would allow the robot to better integrate with external devices. 
+### Robot Code Future Plans
+Well there are a lot. 'RobotCode' was mostly created as a placeholder file for where all the robot code will eventually go. This file is far from complete and only includes some basic functions that are required for the GUI to function. There is often a console log in place of robot opperations. I still need the initial robot startup sequence and homing and to ensure integration with the GUI is working.

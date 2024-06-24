@@ -11,6 +11,7 @@ or run in vs code after importing 'tkinter', 'customtkinter', 'PIL Image'. This 
  
 
 ### The program
+<!-- ![bed](bed.webp)  -->
 <!-- include small pictures -->
 The program opens with an activate button. Once the robot is activated, there is a cameare view of the robot on thr right. Followed by a robot controlls section in the middle, and a program tree on the right side.
 
@@ -59,7 +60,8 @@ I am going to have a target x and a current x, I set the target x to be the x of
 - [x] add webcam for view of the robot
 - [x] add gripper activation, selection and controlls 
 - [x] add scrollable capability to the program frame
-- [ ] add a teach button and runmode dropdowns and '>' button for the robot to run the program
+- [x] add a teach button and runmode dropdowns and '>' button for the robot to run the program
+- [ ] add class/function for program
 - [ ] add button for adding I/O controlls like setting gripper to be open or closed
 - [ ] allow for changes in program tree once the program has been made or during the process
 - [ ] add file drowdown and a save button to save the program

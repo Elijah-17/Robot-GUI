@@ -220,9 +220,16 @@ def reset_all_sLiders():
 
 def program():
     print('program')
+    program_label = customtkinter.CTkLabel(program_frame, width=700, height=30, text="Program")
+    program_label.pack()
+#Using the teach button, make a program tree from the list of taught points. 
+# make a function or a class to print out each taught joint point on the screen with motion speeds and I/O controll like gripper open/close
+
     # create buttons for 'teach' and '>'(run)
     teach = customtkinter.CTkButton(program_controll, width=50, height=20, text='Teach', command=Teach)
     teach.grid(row=0, column=0, padx=10, pady=10)
+    space = customtkinter.CTkLabel(program_controll, width=430, height=20, text='')
+    space.grid(row=0, column=2)
     run = customtkinter.CTkButton(program_controll, width=40, height=40, text= '>', command= Run)
     run.grid(row=0, column=4, padx=10, pady=10)
 

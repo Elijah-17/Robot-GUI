@@ -11,7 +11,7 @@ or run in vs code after importing 'tkinter', 'customtkinter', 'PIL Image'. This 
  
 
 ### The program
-<!-- ![bed](bed.webp)  -->
+![IMG_7550](IMG_7550.jpg)
 <!-- include small pictures -->
 The program opens with an activate button. Once the robot is activated, there is a cameare view of the robot on thr right. Followed by a robot controlls section in the middle, and a program tree on the right side.
 
@@ -23,7 +23,7 @@ I plan to have a drop down with a run selection mode, this run selection mode al
 # About The Robot
 6 axis robotic arm with a interchangeable gripper plate. 
 
-<!-- Include picture -->
+![IMG_7549](IMG_7549.jpg)
 
 Included joints and their naming scheme and function 
 | Joint Name | Number | Function|

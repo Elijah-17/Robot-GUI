@@ -12,8 +12,16 @@ def connectRobot():
  
     print('connecting to external robot')
 
+def Run():
+    print('running')
+    #print(clickedRun)
+    # if in manual, every time run is pressed, current line is incremented by 1. 
+    # if in automatic, every time the current line is run, the currentline is incremented by 1.
+
+    # set the target positions of each joint and wait for the robot to achieve those positions(target==current) before continuing to run
+
 def ParallelOpen():
-    print('opening')
+    print('gripper opening')
     #take each motor or solenoic and move them to the open position. Use eithor a limit switch or incremental step count to return to open position.
 
 def ParallelClose():
@@ -41,5 +49,6 @@ def VacuumClose():
 
 def Teach():
     print("learning current pos.")
+
     #take all current coordinates of robot joints(or target position if it proves to be reliable) and add them to an array.
     #this array should include the decimal position of each joint. the gripper position is entered manually 

@@ -220,8 +220,40 @@ def reset_all_sLiders():
 
 def program():
     print('program')
+    # create buttons for 'teach' and '>'(run)
+    teach = customtkinter.CTkButton(program_controll, width=50, height=20, text='Teach', command=Teach)
+    teach.grid(row=0, column=0, padx=10, pady=10)
+    run = customtkinter.CTkButton(program_controll, width=40, height=40, text= '>', command= Run)
+    run.grid(row=0, column=4, padx=10, pady=10)
+
+    #creating the runmode dropdowns and their options
+    optionsRun = [
+        'select',
+        'Step Mode',
+        'Automatic'
+    ]
+    clickedRun = customtkinter.StringVar()
+    clickedRun.set(optionsRun[0])  # Set the default value
+    runmode = customtkinter.CTkOptionMenu(program_controll, height=40, variable=clickedRun, values=optionsRun)
+    runmode.grid(row=0, column=3, rowspan=2, padx=10, pady=10)
+    print('clicking')
+    print(clickedRun)
+
+
+    # # creating the I/O dropdown and options
+    # optionsio = [
+    #     'select',
+    #     'gripper'
+    # ]
+    # clickedio = customtkinter.StringVar()
+    # clickedio.set(optionsio[0])  # Set the default value
+    # io = customtkinter.CTkOptionMenu(program_controll, height=20, variable=clickedio, values=optionsio)
+    # io.grid(row=0, column=1, rowspan=2, padx=10, pady=10)
+
+    # create dropdowns for runmode and I/O
     #this is where the program tree is made and controlled, i definately dont know the best way to do this especially with the scrollable
     #frame. Or how to display multiple taught positions. Could use a class called 'displayProgram' and feed in the positions from the teach
     #function. I dont know for sure but this might work. 
+
 app.mainloop()
 vid.release()

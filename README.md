@@ -26,3 +26,10 @@ I plan to have a drop down with a run selection mode, this run selection mode al
 
 ## to controll robotic arm 
 I am going to have a target x and a current x, I set the target x to be the x of the slider(1 decimal place) and the current x comes from encoders, the percent displayed is the current robot positions, there is a 'wait for' command between the steps to make sure the robot reaches the target within a tolerance before moving in to the next. PID tuning to controll the joints.
+
+## List Of Steps
+- [x] create and test the main application with a simple button and frame
+- [x] create functions for the sliders
+- [x] convert the function to a class
+- [x] add a home joints button and create the functions to home the sliders and display them correctly
+- [ ] create the .exe application file
